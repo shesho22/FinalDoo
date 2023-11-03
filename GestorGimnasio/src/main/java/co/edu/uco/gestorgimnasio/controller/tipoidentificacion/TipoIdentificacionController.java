@@ -22,6 +22,11 @@ import co.edu.uco.gestorgimnasio.service.facade.concrete.tipoidentificacion.Regi
 public final class TipoIdentificacionController {
 	
 	
+	@GetMapping("/saludo")
+	public String saludo() {
+		return "hola";
+	}
+	
 	@GetMapping("/dummy")
 	public final TipoIdentificacionDTO obtenerDummy() {
 		return TipoIdentificacionDTO.crear();
@@ -54,7 +59,7 @@ public final class TipoIdentificacionController {
 			exception.getExcepcionRaiz().printStackTrace();
 			// TODO: handle exception
 		}catch (final Exception exception) {
-			respuesta.getMensajes().add("Se ha presentado un problema inesperado tratando de tegistrar el tipo identificacion");
+			respuesta.getMensajes().add("Se ha presentado un problema inesperado tratando de registrar el tipo identificacion");
 			exception.printStackTrace();
 			// TODO: handle exception
 		}

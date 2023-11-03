@@ -14,13 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.uco.gestorgimnasio.controller.support.response.Respuesta;
 import co.edu.uco.gestorgimnasio.crosscutting.exception.GestorGimnasioException;
-import co.edu.uco.gestorgimnasio.data.dao.EntrenadorDAO;
 import co.edu.uco.gestorgimnasio.data.dao.RutinaDAO;
-import co.edu.uco.gestorgimnasio.service.dto.EntrenadorDTO;
 import co.edu.uco.gestorgimnasio.service.dto.RutinaDTO;
-import co.edu.uco.gestorgimnasio.service.dto.TipoIdentificacionDTO;
-import co.edu.uco.gestorgimnasio.service.facade.concrete.ejercicio.RegistrarEjercicioFacade;
-import co.edu.uco.gestorgimnasio.service.facade.concrete.entrenador.RegistrarEntrenadorFacade;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.rutina.RegistrarRutinaFacade;
 
 @RestController
