@@ -1,0 +1,50 @@
+-- Crear tabla para el tipo de documento
+CREATE TABLE tipo_documento (
+    id UNIQUEIDENTIFIER PRIMARY KEY,
+    codigo VARCHAR(10) NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    estado TINYINT DEFAULT 1
+);
+
+-- Crear tabla para el entrenador
+CREATE TABLE entrenador (
+    id UNIQUEIDENTIFIER PRIMARY KEY,
+    tipodoc_id UNIQUEIDENTIFIER NOT NULL,
+    identificacion VARCHAR(20) NOT NULL,
+    primer_nombre VARCHAR(50) NOT NULL,
+    segundo_nombre VARCHAR(50),
+    primer_apellido VARCHAR(50) NOT NULL,
+    segundo_apellido VARCHAR(50),
+    correo_electronico VARCHAR(100) NOT NULL,
+    correo_validado TINYINT DEFAULT 0,
+    numero_telefono VARCHAR(15) NOT NULL,
+    telefono_validado TINYINT DEFAULT 0,
+    fecha_nacimiento DATE NOT NULL,
+    FOREIGN KEY (tipodoc_id) REFERENCES tipo_documento (id)
+);
+
+-- Crear tabla para el ejercicio
+CREATE TABLE ejercicio (
+    id UNIQUEIDENTIFIER PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT NOT NULL,
+    series INT NOT NULL,
+    repeticiones INT NOT NULL
+);
+
+-- Crear tabla para la rutina
+CREATE TABLE rutina (
+    id UNIQUEIDENTIFIER PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    entrenador_id UNIQUEIDENTIFIER NOT NULL,
+    FOREIGN KEY (entrenador_id) REFERENCES entrenador (id)
+);
+
+-- Crear tabla de relación entre ejercicios y rutinas
+CREATE TABLE rutina_ejercicio (
+    rutina_id UNIQUEIDENTIFIER NOT NULL,
+    ejercicio_id UNIQUEIDENTIFIER NOT NULL,
+    PRIMARY KEY (rutina_id, ejercicio_id),
+    FOREIGN KEY (rutina_id) REFERENCES rutina (id),
+    FOREIGN KEY (ejercicio_id) REFERENCES ejercicio (id)
+);
