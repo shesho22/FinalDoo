@@ -2,18 +2,12 @@ package co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.rutin
 
 
 import co.edu.uco.gestorgimnasio.service.businesslogic.validator.Validator;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.EntrenadorDomain;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.CorreoElectronicoValidationRule;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.FechaNacimientoValidationRule;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.EntrenadorValidationRule;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.IdentificacionValidationRule;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.NombreCompletoValidationRule;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.NumeroTelefonoMovilValidationRule;
+
 import co.edu.uco.gestorgimnasio.service.domain.rutina.RutinaDomain;
 import co.edu.uco.gestorgimnasio.service.domain.rutina.rules.ListaEjerciciosValidationRule;
 import co.edu.uco.gestorgimnasio.service.domain.rutina.rules.NombreRutinaValidationRule;
 import co.edu.uco.gestorgimnasio.service.domain.rutina.rules.IdRutinaValidationRule;
-import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.rules.TipoIdentificacionValidationRule;
+
 
 
 public final class RegistrarRutinaValidator implements Validator<RutinaDomain> {

@@ -2,19 +2,19 @@ package co.edu.uco.gestorgimnasio.service.facade.concrete.rutina;
 
 import co.edu.uco.gestorgimnasio.crosscutting.exception.GestorGimnasioException;
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGimnasioException;
-import co.edu.uco.gestorgimnasio.data.dao.RutinaDAO;
+
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.TipoDAOFactory;
-import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.entrenador.RegistrarEntrenadorUseCase;
+
 import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.rutina.RegistrarRutinaUseCase;
-import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.entrenador.RegistrarEntrenadorValidator;
+
 import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.rutina.RegistrarRutinaValidator;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.EntrenadorDomain;
+
 import co.edu.uco.gestorgimnasio.service.domain.rutina.RutinaDomain;
-import co.edu.uco.gestorgimnasio.service.dto.EntrenadorDTO;
+
 import co.edu.uco.gestorgimnasio.service.dto.RutinaDTO;
 import co.edu.uco.gestorgimnasio.service.facade.Facade;
-import co.edu.uco.gestorgimnasio.service.mapper.dto.concrete.EntrenadorDTOMapper;
+
 import co.edu.uco.gestorgimnasio.service.mapper.dto.concrete.RutinaDTOMapper;
 
 public final class RegistrarRutinaFacade implements Facade<RutinaDTO> {
@@ -30,7 +30,7 @@ public final class RegistrarRutinaFacade implements Facade<RutinaDTO> {
         try {
             daoFactory.iniciarTransaccion();
 
-            var useCase = new RegistrarRutinaUseCase(daoFactory);
+           final var useCase = new RegistrarRutinaUseCase(daoFactory);
             useCase.execute(domain);
 
             daoFactory.confirmarTransaccion();
@@ -40,9 +40,8 @@ public final class RegistrarRutinaFacade implements Facade<RutinaDTO> {
             throw excepcion;
         } catch (Exception exception) {
             daoFactory.cancelarTransaccion();
-            var mensajeUsuario = "Se ha presentado un error inesperado tratando de registrar una nueva rutina";
-            var mensajeTecnico = "Se ha presentado un error inesperado tratando de registrar una nueva rutina. Verifique la traza completa.";
-            throw ServiceGestorGimnasioException.crear(exception, mensajeUsuario, mensajeTecnico);
+
+            throw ServiceGestorGimnasioException.crear(exception, "Se ha presentado un error inesperado tratando de registrar una nueva rutina", "Se ha presentado un error inesperado tratando de registrar una nueva rutina. Verifique la traza completa.");
         } finally {
             daoFactory.cerrarConexion();
         }	

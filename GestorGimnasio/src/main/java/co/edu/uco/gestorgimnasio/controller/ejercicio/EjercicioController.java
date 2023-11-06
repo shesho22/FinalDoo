@@ -3,6 +3,7 @@ package co.edu.uco.gestorgimnasio.controller.ejercicio;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,11 +41,11 @@ public final class EjercicioController {
 	
 	
 	@PostMapping
-	public final EjercicioDTO registrar(@RequestBody EjercicioDTO dto) {
+	public final ResponseEntity<Respuesta<EjercicioDTO>> registrar(@RequestBody EjercicioDTO dto) {
 		Respuesta<EjercicioDTO> respuesta =new Respuesta<>();
 		HttpStatus codigoHttp = HttpStatus.BAD_REQUEST;
 		try {
-			RegistrarEjercicioFacade facade = new RegistrarEjercicioFacade();
+			final RegistrarEjercicioFacade facade = new RegistrarEjercicioFacade();
 			facade.execute(dto);
 			codigoHttp = HttpStatus.OK;
 			respuesta.getMensajes().add("El ejercicio fue registrado existosamente...");
@@ -52,15 +53,15 @@ public final class EjercicioController {
 			respuesta.getMensajes().add(exception.getMensajeUsuario());
 			System.err.println(exception.getMensajeTecnico());
 			System.err.println(exception.getLugar());
-			exception.getExcepcionRaiz().printStackTrace();
-			// TODO: handle exception
+			
 		}catch (final Exception exception) {
+			codigoHttp=HttpStatus.INTERNAL_SERVER_ERROR;
 			respuesta.getMensajes().add("Se ha presentado un problema inesperado tratando de registrar el ejercicio");
-			exception.printStackTrace();
+			
 			// TODO: handle exception
 		}
 		
-		return dto;
+		return new ResponseEntity<>(respuesta, codigoHttp);
 	}
 	
 	@PutMapping

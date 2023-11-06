@@ -6,7 +6,7 @@ import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.TipoDAOFactory;
 import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.tipoidentificacion.RegistrarTipoIdentificacionUseCase;
 import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.tipoidentificacion.EliminarTipoIdentificacionValidator;
-import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.tipoidentificacion.RegistrarTipoIdentificacionValidator;
+
 import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.edu.uco.gestorgimnasio.service.dto.TipoIdentificacionDTO;
 import co.edu.uco.gestorgimnasio.service.facade.Facade;
@@ -24,7 +24,7 @@ public final class EliminarTipoIdentificacionFacade implements Facade<TipoIdenti
 		try {
 			daoFactory.iniciarTransaccion();
 			
-			var useCase = new RegistrarTipoIdentificacionUseCase(daoFactory);
+			final var useCase = new RegistrarTipoIdentificacionUseCase(daoFactory);
 			useCase.execute(domain);
 			
 			daoFactory.confirmarTransaccion();
@@ -34,9 +34,10 @@ public final class EliminarTipoIdentificacionFacade implements Facade<TipoIdenti
 			throw excepcion;
 		}catch (Exception exception) {
 			daoFactory.cancelarTransaccion();
-			var mensajeUsuario ="Se ha presentado un error inesperado tratando de registrar un nuevo tipo de identificacion";
-			var mensajeTecnico = "Se ha presentado un error inesperado tratando de registrar un nuevo tipo de identificacion. verigue la trasa completa ";
-			throw ServiceGestorGimnasioException.crear(exception,mensajeUsuario,mensajeTecnico);
+	
+			throw ServiceGestorGimnasioException.crear(exception,
+					"Se ha presentado un error inesperado tratando de registrar un nuevo tipo de identificacion",
+					"Se ha presentado un error inesperado tratando de registrar un nuevo tipo de identificacion. verigue la trasa completa ");
 		}
 		finally {
 			daoFactory.cerrarConexion();
