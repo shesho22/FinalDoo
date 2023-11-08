@@ -46,9 +46,9 @@ public class UtilListUuid {
 
     public static List<UUID> crearPorDefecto(List<UUID> ejercicios) {
         List<UUID> listaPorDefecto = new ArrayList<>();
-        for (UUID ejercicio : ejercicios) {
+        ejercicios.forEach(ejercicio -> {
             listaPorDefecto.add(new UUID(0, 0));
-        }
+        });
         return listaPorDefecto;
     }
 

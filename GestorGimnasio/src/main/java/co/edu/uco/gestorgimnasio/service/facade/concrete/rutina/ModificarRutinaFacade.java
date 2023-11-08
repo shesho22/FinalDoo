@@ -5,27 +5,26 @@ import co.edu.uco.gestorgimnasio.crosscutting.exception.GestorGimnasioException;
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGimnasioException;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.TipoDAOFactory;
-import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.rutina.EliminarRutinaUseCase;
-import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.rutina.EliminarRutinaValidator;
+import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.rutina.ModificarRutinaUseCase;
+import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.rutina.ModificarRutinaValidator;
 import co.edu.uco.gestorgimnasio.service.domain.rutina.RutinaDomain;
 import co.edu.uco.gestorgimnasio.service.dto.RutinaDTO;
 import co.edu.uco.gestorgimnasio.service.facade.Facade;
 import co.edu.uco.gestorgimnasio.service.mapper.dto.concrete.RutinaDTOMapper;
 
+public final class ModificarRutinaFacade implements Facade<RutinaDTO> {
 
-public final class EliminarRutinaFacade implements Facade<RutinaDTO> {
-
-	@Override
+    @Override
     public void execute(RutinaDTO dto) {
         final RutinaDomain domain = RutinaDTOMapper.convertirToDomain(dto);
-        EliminarRutinaValidator.ejecutar(domain);
+        ModificarRutinaValidator.ejecutar(domain);
 
         final DAOFactory daoFactory = DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
 
         try {
             daoFactory.iniciarTransaccion();
 
-            var useCase = new EliminarRutinaUseCase(daoFactory);
+            var useCase = new ModificarRutinaUseCase(daoFactory);
             useCase.execute(domain);
 
             daoFactory.confirmarTransaccion();
@@ -35,8 +34,8 @@ public final class EliminarRutinaFacade implements Facade<RutinaDTO> {
             throw excepcion;
         } catch (Exception exception) {
             daoFactory.cancelarTransaccion();
-            var mensajeUsuario = "Se ha presentado un error inesperado tratando de eliminar una rutina ";
-            var mensajeTecnico = "Se ha presentado un error inesperado tratando de eliminar una rutina. Verifique la trasa completa ";
+            var mensajeUsuario = "Se ha presentado un error inesperado tratando de modificar una rutina";
+            var mensajeTecnico = "Se ha presentado un error inesperado tratando de modificar una rutina. Verifique la trasa completa ";
             throw ServiceGestorGimnasioException.crear(exception, mensajeUsuario, mensajeTecnico);
         } finally {
             daoFactory.cerrarConexion();

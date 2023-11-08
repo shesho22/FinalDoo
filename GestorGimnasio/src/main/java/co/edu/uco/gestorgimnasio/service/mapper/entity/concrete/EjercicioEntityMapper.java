@@ -8,17 +8,8 @@ import co.edu.uco.gestorgimnasio.crosscutting.messages.CatalogoMensajes;
 import co.edu.uco.gestorgimnasio.crosscutting.messages.enumerator.CodigoMensaje;
 import co.edu.uco.gestorgimnasio.crosscutting.util.UtilObjeto;
 import co.edu.uco.gestorgimnasio.data.entity.EjercicioEntity;
-import co.edu.uco.gestorgimnasio.data.entity.EntrenadorEntity;
-import co.edu.uco.gestorgimnasio.data.entity.TipoIdentificacionEntity;
-import co.edu.uco.gestorgimnasio.data.entity.support.CorreoElectronicoEntrenadorEntity;
-import co.edu.uco.gestorgimnasio.data.entity.support.NombreCompletoEntrenadorEntity;
 import co.edu.uco.gestorgimnasio.service.domain.ejercicio.EjercicioDomain;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.EntrenadorDomain;
-import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.EntityMapper;
-import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.support.CorreoElectronicoClienteEntityMapper;
-import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.support.NombreCompletoClienteEntityMapper;
-import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.support.NumeroTelefonoMovilClienteEntityMapper;
 
 public final class EjercicioEntityMapper implements EntityMapper<EjercicioEntity, EjercicioDomain>{
 

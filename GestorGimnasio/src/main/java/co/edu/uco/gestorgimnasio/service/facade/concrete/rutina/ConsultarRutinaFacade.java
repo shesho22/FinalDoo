@@ -1,36 +1,30 @@
 package co.edu.uco.gestorgimnasio.service.facade.concrete.rutina;
 
+
 import co.edu.uco.gestorgimnasio.crosscutting.exception.GestorGimnasioException;
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGimnasioException;
-import co.edu.uco.gestorgimnasio.data.dao.RutinaDAO;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.TipoDAOFactory;
-import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.entrenador.RegistrarEntrenadorUseCase;
-import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.rutina.RegistrarRutinaUseCase;
-import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.entrenador.RegistrarEntrenadorValidator;
-import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.rutina.RegistrarRutinaValidator;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.EntrenadorDomain;
+import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.rutina.ConsultarRutinaUseCase;
+import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.rutina.ConsultarRutinaValidator;
 import co.edu.uco.gestorgimnasio.service.domain.rutina.RutinaDomain;
-import co.edu.uco.gestorgimnasio.service.dto.EntrenadorDTO;
 import co.edu.uco.gestorgimnasio.service.dto.RutinaDTO;
 import co.edu.uco.gestorgimnasio.service.facade.Facade;
-import co.edu.uco.gestorgimnasio.service.mapper.dto.concrete.EntrenadorDTOMapper;
 import co.edu.uco.gestorgimnasio.service.mapper.dto.concrete.RutinaDTOMapper;
 
 public final class ConsultarRutinaFacade implements Facade<RutinaDTO> {
 
-
-	@Override
-	public void execute(RutinaDTO dto) {
-		final RutinaDomain domain = RutinaDTOMapper.convertirToDomain(dto);
-        RegistrarRutinaValidator.ejecutar(domain);
+    @Override
+    public void execute(RutinaDTO dto) {
+        final RutinaDomain domain = RutinaDTOMapper.convertirToDomain(dto);
+        ConsultarRutinaValidator.ejecutar(domain);
 
         final DAOFactory daoFactory = DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
 
         try {
             daoFactory.iniciarTransaccion();
 
-            var useCase = new RegistrarRutinaUseCase(daoFactory);
+            var useCase = new ConsultarRutinaUseCase(daoFactory);
             useCase.execute(domain);
 
             daoFactory.confirmarTransaccion();
@@ -40,11 +34,12 @@ public final class ConsultarRutinaFacade implements Facade<RutinaDTO> {
             throw excepcion;
         } catch (Exception exception) {
             daoFactory.cancelarTransaccion();
-            var mensajeUsuario = "Se ha presentado un error inesperado tratando de registrar una nueva rutina";
-            var mensajeTecnico = "Se ha presentado un error inesperado tratando de registrar una nueva rutina. Verifique la traza completa.";
+            var mensajeUsuario = "Se ha presentado un error inesperado tratando de consultar una rutina";
+            var mensajeTecnico = "Se ha presentado un error inesperado tratando de consultar una rutina. Verifique la trasa completa ";
             throw ServiceGestorGimnasioException.crear(exception, mensajeUsuario, mensajeTecnico);
         } finally {
             daoFactory.cerrarConexion();
-        }	
-	}
+        }
+    }
 }
+

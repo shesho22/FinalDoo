@@ -1,63 +1,55 @@
 package co.edu.uco.gestorgimnasio.service.businesslogic.concrete.rutina;
 
 
-import java.util.Optional;
-import java.util.UUID;
-
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGimnasioException;
 import co.edu.uco.gestorgimnasio.crosscutting.util.UtilObjeto;
 import co.edu.uco.gestorgimnasio.data.dao.RutinaDAO;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
-import co.edu.uco.gestorgimnasio.data.entity.RutinaEntity;
 import co.edu.uco.gestorgimnasio.service.businesslogic.UseCase;
-import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.rutina.RegistrarRutinaValidator;
+import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.rutina.ModificarRutinaValidator;
 import co.edu.uco.gestorgimnasio.service.domain.rutina.RutinaDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.RutinaEntityMapper;
 
+public final class ModificarRutinaUseCase implements UseCase<RutinaDomain> {
 
-public final class RegistrarRutinaUseCase implements UseCase<RutinaDomain> {
     private DAOFactory factoria;
 
-    public RegistrarRutinaUseCase(final DAOFactory factoria) {
+    public ModificarRutinaUseCase(final DAOFactory factoria) {
         setFactoria(factoria);
     }
 
     @Override
     public final void execute(RutinaDomain domain) {
-        RegistrarRutinaValidator.ejecutar(domain);
-        validarNoExistenciaRutinaConMismoNombre(domain.getNombre());
-        domain = obtenerIdentificadorRutina(domain);
-        registrarNuevaRutina(domain);
+        ModificarRutinaValidator.ejecutar(domain);
+        validarExistenciaRutinaConMismoNombre(domain.getNombre());
+        domain = actualizarIdentificadorRutina(domain);
+        modificarRutina(domain);
     }
 
-    private void registrarNuevaRutina(final RutinaDomain domain) {
+    private void modificarRutina(final RutinaDomain domain) {
         var entity = RutinaEntityMapper.convertToEntity(domain);
-        getRutinaDAO().crear(entity, null);
+        getRutinaDAO().modificar(entity, null);
     }
 
-    private final void validarNoExistenciaRutinaConMismoNombre(final String nombre) {
-        var domain = RutinaDomain.crear(null, nombre, null,null);
+    private final void validarExistenciaRutinaConMismoNombre(final String nombre) {
+        var domain = RutinaDomain.crear(null, nombre, null, null);
         var entity = RutinaEntityMapper.convertToEntity(domain);
         var resultados = getRutinaDAO().consultar(entity);
 
-        if (!resultados.isEmpty()) {
+        if (resultados.size() > 1 || (resultados.size() == 1 && !resultados.get(0).getId().equals(domain.getId()))) {
             var mensajeUsuario = "Ya existe una rutina con el nombre " + nombre;
             throw ServiceGestorGimnasioException.crear(mensajeUsuario);
         }
     }
 
-    private final RutinaDomain obtenerIdentificadorRutina(final RutinaDomain domain) {
-        Optional<RutinaEntity> optional;
-        UUID uuid;
+    private final RutinaDomain actualizarIdentificadorRutina(final RutinaDomain domain) {
+        if (domain.getId() == null) {
+            var mensajeUsuario = "No se puede actualizar una rutina sin ID";
+            throw ServiceGestorGimnasioException.crear(mensajeUsuario);
+        }
 
-        do {
-            uuid = UUID.randomUUID();
-            optional = getRutinaDAO().consultarPorId(uuid);
-        } while (optional.isPresent());
-
-        return RutinaDomain.crear(uuid, domain.getNombre(), domain.getEntrenador(), domain.getEjercicios());
+        return domain;
     }
-
 
     private final DAOFactory getFactoria() {
         return factoria;
@@ -76,5 +68,3 @@ public final class RegistrarRutinaUseCase implements UseCase<RutinaDomain> {
         return getFactoria().obtenerRutinaDAO();
     }
 }
-
-
