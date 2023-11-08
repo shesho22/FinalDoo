@@ -8,6 +8,7 @@ import co.edu.uco.gestorgimnasio.service.domain.rutina.rules.NombreRutinaValidat
 import co.edu.uco.gestorgimnasio.service.domain.rutina.rules.IdRutinaValidationRule;
 
 
+
 public final class ConsultarRutinaValidator implements Validator<RutinaDomain>{
 
 

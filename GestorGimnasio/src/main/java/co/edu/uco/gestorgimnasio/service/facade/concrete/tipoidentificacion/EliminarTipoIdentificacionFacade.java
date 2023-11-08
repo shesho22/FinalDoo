@@ -42,5 +42,5 @@ public final class EliminarTipoIdentificacionFacade implements Facade<TipoIdenti
             daoFactory.cerrarConexion();
         }
     }
-}
+
 

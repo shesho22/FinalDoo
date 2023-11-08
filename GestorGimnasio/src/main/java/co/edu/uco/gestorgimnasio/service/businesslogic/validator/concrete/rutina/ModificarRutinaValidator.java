@@ -6,6 +6,7 @@ import co.edu.uco.gestorgimnasio.service.domain.rutina.rules.ListaEjerciciosVali
 import co.edu.uco.gestorgimnasio.service.domain.rutina.rules.NombreRutinaValidationRule;
 import co.edu.uco.gestorgimnasio.service.domain.rutina.rules.IdRutinaValidationRule;
 
+
 public class ModificarRutinaValidator implements Validator<RutinaDomain>{
 	
 	private static final Validator<RutinaDomain> instancia = new ModificarRutinaValidator();
