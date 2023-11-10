@@ -1,6 +1,7 @@
 package co.edu.uco.gestorgimnasio.service.businesslogic.concrete.tipoidentificacion;
 
 
+
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGimnasioException;
 import co.edu.uco.gestorgimnasio.crosscutting.util.UtilObjeto;
 import co.edu.uco.gestorgimnasio.data.dao.TipoIdentificacionDAO;
@@ -10,7 +11,7 @@ import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.tipoid
 import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.TipoIdentificacionEntityMapper;
 
-public final class ModificarTipoIdentificacionUseCase implements UseCase<TipoIdentificacionDomain> {
+public final class ModificarTipoIdentificacionUseCase implements UseCase<TipoIdentificacionDomain, String> {
 
     private DAOFactory factoria;
 
@@ -19,48 +20,36 @@ public final class ModificarTipoIdentificacionUseCase implements UseCase<TipoIde
     }
 
     @Override
-    public final void execute(TipoIdentificacionDomain domain) {
+    public final void actualizar(TipoIdentificacionDomain domain) {
+        // Validar el objeto TipoIdentificacionDomain
         RegistrarTipoIdentificacionValidator.ejecutar(domain);
-        validarExistenciaTipoIdentificacionConMismoCodigo(domain.getCodigo());
-        validarExistenciaTipoIdentificacionConMismoNombre(domain.getNombre());
-        domain = actualizarIdentificadorTipoIdentificacion(domain);
+        
+        // Validar la existencia del nombre del tipo de identificación
+        validarExistenciaTipoIdentificacion(domain.getCodigo());
+        
+        // Modificar el tipo de identificación
         modificarTipoIdentificacion(domain);
     }
 
     private void modificarTipoIdentificacion(final TipoIdentificacionDomain domain) {
+        // Convierte el dominio en una entidad y llama al método de modificación
         var entity = TipoIdentificacionEntityMapper.convertToEntity(domain);
         getTipoIdentificacionDAO().modificar(entity);
     }
 
-    private final void validarExistenciaTipoIdentificacionConMismoNombre(final String nombre) {
+    private final void validarExistenciaTipoIdentificacion(final String nombre) {
+        // Crea un dominio temporal para buscar duplicados
         var domain = TipoIdentificacionDomain.crear(null, null, nombre, false);
+        
+        // Convierte el dominio en una entidad y consulta la base de datos
         var entity = TipoIdentificacionEntityMapper.convertToEntity(domain);
         var resultados = getTipoIdentificacionDAO().consultar(entity);
 
+        // Verifica si ya existe un tipo de identificación con el mismo nombre
         if (resultados.size() > 1 || (resultados.size() == 1 && !resultados.get(0).getId().equals(domain.getId()))) {
             var mensajeUsuario = "Ya existe un tipo de identificación con el nombre " + nombre;
             throw ServiceGestorGimnasioException.crear(mensajeUsuario);
         }
-    }
-
-    private final void validarExistenciaTipoIdentificacionConMismoCodigo(final String codigo) {
-        var domain = TipoIdentificacionDomain.crear(null, codigo, null, false);
-        var entity = TipoIdentificacionEntityMapper.convertToEntity(domain);
-        var resultados = getTipoIdentificacionDAO().consultar(entity);
-
-        if (resultados.size() > 1 || (resultados.size() == 1 && !resultados.get(0).getId().equals(domain.getId()))) {
-            var mensajeUsuario = "Ya existe un tipo de identificación con el código " + codigo;
-            throw ServiceGestorGimnasioException.crear(mensajeUsuario);
-        }
-    }
-
-    private final TipoIdentificacionDomain actualizarIdentificadorTipoIdentificacion(final TipoIdentificacionDomain domain) {
-        if (domain.getId() == null) {
-            var mensajeUsuario = "No se puede actualizar un tipo de identificación sin ID";
-            throw ServiceGestorGimnasioException.crear(mensajeUsuario);
-        }
-
-        return domain;
     }
 
     private final DAOFactory getFactoria() {
@@ -80,3 +69,4 @@ public final class ModificarTipoIdentificacionUseCase implements UseCase<TipoIde
         return getFactoria().obtenerTipoIdentificacionDAO();
     }
 }
+

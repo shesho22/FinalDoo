@@ -7,10 +7,8 @@ import co.edu.uco.gestorgimnasio.crosscutting.util.UtilObjeto;
 import co.edu.uco.gestorgimnasio.data.dao.TipoIdentificacionDAO;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.service.businesslogic.UseCase;
-import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentificacionDomain;
-import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.TipoIdentificacionEntityMapper;
 
-public final class EliminarTipoIdentificacionUseCase implements UseCase<TipoIdentificacionDomain> {
+public final class EliminarTipoIdentificacionUseCase implements UseCase<UUID, String> {
 
     private DAOFactory factoria;
 
@@ -19,17 +17,19 @@ public final class EliminarTipoIdentificacionUseCase implements UseCase<TipoIden
     }
 
     @Override
-    public final void execute(TipoIdentificacionDomain domain) {
-        validarExistenciaTipoIdentificacion(domain.getId());
-        eliminarTipoIdentificacion(domain);
+    public final void eliminar(UUID id) {
+        // Validar la existencia del tipo de identificación
+        validarExistencia(id);
+        
+        // Eliminar el tipo de identificación
+        eliminarPorId(id);
     }
 
-    private void eliminarTipoIdentificacion(final TipoIdentificacionDomain domain) {
-        var entity = TipoIdentificacionEntityMapper.convertToEntity(domain);
-        getTipoIdentificacionDAO().eliminar(entity);
+    private void eliminarPorId(final UUID id) {
+        getTipoIdentificacionDAO().eliminar(id);
     }
 
-    private final void validarExistenciaTipoIdentificacion(final UUID id) {
+    private final void validarExistencia(final UUID id) {
         var resultado = getTipoIdentificacionDAO().consultarPorId(id);
         if (resultado.isEmpty()) {
             var mensajeUsuario = "No existe un tipo de identificación con el ID " + id;

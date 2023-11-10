@@ -10,7 +10,7 @@ import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.ejerci
 import co.edu.uco.gestorgimnasio.service.domain.ejercicio.EjercicioDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.EjercicioEntityMapper;
 
-public final class ModificarEjercicioUseCase implements UseCase<EjercicioDomain> {
+public final class ModificarEjercicioUseCase implements UseCase<EjercicioDomain,String> {
 
     private DAOFactory factoria;
 
@@ -19,7 +19,7 @@ public final class ModificarEjercicioUseCase implements UseCase<EjercicioDomain>
     }
 
     @Override
-    public final void execute(EjercicioDomain domain) {
+    public final void actualizar(EjercicioDomain domain) {
         ModificarEjercicioValidator.ejecutar(domain);
         validarExistenciaEjercicioConMismoNombre(domain.getNombre());
         domain = actualizarIdentificadorEjercicio(domain);

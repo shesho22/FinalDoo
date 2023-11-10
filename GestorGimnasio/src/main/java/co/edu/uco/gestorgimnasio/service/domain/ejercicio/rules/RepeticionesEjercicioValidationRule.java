@@ -7,13 +7,13 @@ import co.edu.uco.gestorgimnasio.service.domain.ValidatorRule;
 public class RepeticionesEjercicioValidationRule implements ValidatorRule<String>{
 
 	private static final ValidatorRule<String> instancia = new RepeticionesEjercicioValidationRule();
-	
+
 	  private RepeticionesEjercicioValidationRule() {
 		  super();
 	  }
-	
+
 	public static void ejecutarValidacion(String dato) {
-		instancia.validar(dato);		
+		instancia.validar(dato);
 	}
 
 	@Override

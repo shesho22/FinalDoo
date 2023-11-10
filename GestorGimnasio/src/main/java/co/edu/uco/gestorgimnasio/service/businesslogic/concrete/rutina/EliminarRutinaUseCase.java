@@ -7,9 +7,8 @@ import co.edu.uco.gestorgimnasio.crosscutting.util.UtilObjeto;
 import co.edu.uco.gestorgimnasio.data.dao.RutinaDAO;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.service.businesslogic.UseCase;
-import co.edu.uco.gestorgimnasio.service.domain.rutina.RutinaDomain;
 
-public final class EliminarRutinaUseCase implements UseCase<RutinaDomain> {
+public final class EliminarRutinaUseCase implements UseCase<UUID,String> {
 
     private DAOFactory factoria;
 
@@ -18,20 +17,19 @@ public final class EliminarRutinaUseCase implements UseCase<RutinaDomain> {
     }
 
     @Override
-    public final void execute(RutinaDomain domain) {
-        validarExistenciaRutina(domain.getId());
-        eliminarRutina(domain);
+    public final void eliminar(UUID id) {
+    	validarExistencia(id);
+    	eliminarPorId(id);
     }
 
-    private void eliminarRutina(final RutinaDomain domain) {
-        RutinaDAO rutinaDAO = getRutinaDAO();
-        rutinaDAO.eliminar(domain.getId());
+    private void eliminarPorId(final UUID id) {
+        getRutinaDAO().eliminar(id);
     }
 
-    private final void validarExistenciaRutina(final UUID id) {
+    private final void validarExistencia(final UUID id) {
         var resultado = getRutinaDAO().consultarPorId(id);
         if (resultado.isEmpty()) {
-            var mensajeUsuario = "No existe una rutina con el ID " + id;
+            var mensajeUsuario = "No existe un tipo de identificación con el ID " + id;
             throw ServiceGestorGimnasioException.crear(mensajeUsuario);
         }
     }

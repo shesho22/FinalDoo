@@ -7,13 +7,13 @@ import co.edu.uco.gestorgimnasio.service.domain.ValidatorRule;
 public class NombreEjercicioValidationRule implements ValidatorRule<String>{
 
 	private static final ValidatorRule<String> instancia = new NombreEjercicioValidationRule();
-	
+
 	  private NombreEjercicioValidationRule() {
 		  super();
 	  }
-	
+
 	public static void ejecutarValidacion(String dato) {
-		instancia.validar(dato);		
+		instancia.validar(dato);
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class NombreEjercicioValidationRule implements ValidatorRule<String>{
 			throw ServiceGestorGimnasioException.crear(mensajeUsuario);
 		}
 	}
-	
+
 	private final void validarObligatoriedad(final String dato) {
 		if(UtilTexto.estaVacio(dato)) {
 			var mensajeUsuario="El nombre del ejercicio es un dato que es obligatorio";

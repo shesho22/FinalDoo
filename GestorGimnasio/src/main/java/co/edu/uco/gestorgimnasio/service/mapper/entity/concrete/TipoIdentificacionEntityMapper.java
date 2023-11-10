@@ -11,11 +11,11 @@ import co.edu.uco.gestorgimnasio.service.mapper.entity.EntityMapper;
 public final class TipoIdentificacionEntityMapper implements EntityMapper<TipoIdentificacionEntity, TipoIdentificacionDomain>{
 
 	private static final EntityMapper<TipoIdentificacionEntity, TipoIdentificacionDomain> instancia = new TipoIdentificacionEntityMapper();
-	
+
 	private TipoIdentificacionEntityMapper() {
 		super();
 	}
-	
+
 	@Override
 	public final TipoIdentificacionDomain toDomain(final TipoIdentificacionEntity entity) {
 		if(UtilObjeto.esNulo(entity)) {
@@ -25,7 +25,7 @@ public final class TipoIdentificacionEntityMapper implements EntityMapper<TipoId
 		}
 		return TipoIdentificacionDomain.crear(entity.getId(), entity.getCodigo(), entity.getNombre(), entity.isEstado());
 	}
-	
+
 	@Override
 	public final TipoIdentificacionEntity toEntity(final TipoIdentificacionDomain domain) {
 		if(UtilObjeto.esNulo(domain)) {
@@ -34,13 +34,13 @@ public final class TipoIdentificacionEntityMapper implements EntityMapper<TipoId
 			throw ServiceGestorGimnasioException.crear(mensajeUsuario,mensajeTecnico);
 		}
 		return TipoIdentificacionEntity.crear(domain.getId(), domain.getCodigo(), domain.getNombre(), domain.isEstado());
-	
+
 	}
-	
+
 	public static final TipoIdentificacionDomain convertToDomain(final TipoIdentificacionEntity entity) {
 		return instancia.toDomain(entity);
 	}
-	
+
 	public static final TipoIdentificacionEntity convertToEntity(final TipoIdentificacionDomain domain) {
 		return instancia.toEntity(domain);
 	}

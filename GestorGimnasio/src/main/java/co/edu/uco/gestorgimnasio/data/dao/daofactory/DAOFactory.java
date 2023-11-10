@@ -53,8 +53,8 @@ public abstract class DAOFactory {
 	public abstract EntrenadorDAO obtenerEntrenadorDAO();
 
 	public abstract TipoIdentificacionDAO obtenerTipoIdentificacionDAO();
-	
+
 	public abstract EjercicioDAO obtenerEjercicioDAO();
-	
+
 	public abstract RutinaDAO obtenerRutinaDAO();
 }

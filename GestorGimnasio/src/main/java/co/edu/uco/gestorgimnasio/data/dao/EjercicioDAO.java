@@ -8,7 +8,7 @@ import co.edu.uco.gestorgimnasio.data.entity.EjercicioEntity;
 
 
 public interface EjercicioDAO {
-	
+
 	void crear(EjercicioEntity entity);
 	void modificar(EjercicioEntity entity);
 	void eliminar(UUID id);

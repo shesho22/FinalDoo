@@ -32,18 +32,18 @@ import co.edu.uco.gestorgimnasio.service.facade.concrete.rutina.RegistrarRutinaF
 @RestController
 @RequestMapping("/api/v1/rutina")
 public final class RutinaController {
-	
-	
+
+
 	@GetMapping("/saludo")
 	public String saludo() {
 		return "hola";
 	}
-	
+
 	@GetMapping("/dummy")
 	public final TipoIdentificacionDTO obtenerDummy() {
 		return TipoIdentificacionDTO.crear();
 	}
-	
+
 	@GetMapping
 	public ResponseEntity<Respuesta<RutinaDTO>> consultar(@RequestBody RutinaDTO dto) {
 	    Respuesta<RutinaDTO> respuesta = new Respuesta<>();
@@ -83,10 +83,10 @@ public final class RutinaController {
 	        DAOFactory daoFactory = DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
 	        ConsultarPorIdRutinaUseCase useCase = new ConsultarPorIdRutinaUseCase(daoFactory);
 	        RutinaDomain tipoIdentificacionDomain = new RutinaDomain(id, null, null, null);
-	        useCase.execute(tipoIdentificacionDomain); 
+	        useCase.execute(tipoIdentificacionDomain);
 	        respuesta.getMensajes().add("La consulta de rutina por ID se realizó exitosamente.");
 	    } catch (final GestorGimnasioException exception) {
-	        codigoHttp = HttpStatus.NOT_FOUND; 
+	        codigoHttp = HttpStatus.NOT_FOUND;
 	        respuesta.getMensajes().add("No se encontró ningúna rutina con el ID proporcionado.");
 	        System.err.println(exception.getMensajeTecnico());
 	        System.err.println(exception.getLugar());
@@ -110,8 +110,8 @@ public final class RutinaController {
 
 
 
-	
-	
+
+
 	@PostMapping
 	public final RutinaDTO registrar(@RequestBody RutinaDTO dto) {
 	    Respuesta<RutinaDTO> respuesta = new Respuesta<>();
@@ -135,14 +135,14 @@ public final class RutinaController {
 	    return dto;
 	}
 
-	
+
 	@PutMapping
 	public final RutinaDTO modificar(@PathVariable("id") UUID id, @RequestBody RutinaDTO dto) {
 	    Respuesta<RutinaDTO> respuesta = new Respuesta<>();
 	    HttpStatus codigoHttp = HttpStatus.BAD_REQUEST;
 	    try {
 	        ModificarRutinaFacade facade = new ModificarRutinaFacade();
-	        dto.setId(id); 
+	        dto.setId(id);
 	        facade.execute(dto);
 	        codigoHttp = HttpStatus.OK;
 	        respuesta.getMensajes().add("La rutina fue modificado exitosamente...");
@@ -160,7 +160,7 @@ public final class RutinaController {
 	    return dto;
 	}
 
-	
+
 
 	@DeleteMapping ("/{id}")
 	public ResponseEntity<String> eliminar(@PathVariable("id") UUID id) {
@@ -198,5 +198,5 @@ public final class RutinaController {
 
 
 
-	
+
 }

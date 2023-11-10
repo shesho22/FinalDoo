@@ -9,11 +9,11 @@ import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.rules.TipoIde
 
 public class ModificarTipoIdentificacionValidator implements Validator<TipoIdentificacionDomain>{
 	private static final Validator<TipoIdentificacionDomain> instancia = new ModificarTipoIdentificacionValidator();
-	
+
 	private ModificarTipoIdentificacionValidator() {
 		super();
 	}
-	
+
 	public static final void ejecutarValidacion(final TipoIdentificacionDomain data) {
 		instancia.execute(data);
 	}
@@ -25,5 +25,5 @@ public class ModificarTipoIdentificacionValidator implements Validator<TipoIdent
 		CodigoTipoIdentificacionValidationRule.ejecutarValidacion(dato.getCodigo());
 		NombreTipoIdentificacionValidationRule.ejecutarValidacion(dato.getNombre());
 	}
-	
+
 }

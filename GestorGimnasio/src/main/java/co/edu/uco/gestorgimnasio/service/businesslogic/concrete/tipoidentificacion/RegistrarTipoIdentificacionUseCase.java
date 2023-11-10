@@ -13,19 +13,19 @@ import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.tipoid
 import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.TipoIdentificacionEntityMapper;
 
-public final class RegistrarTipoIdentificacionUseCase implements UseCase<TipoIdentificacionDomain>{
+public final class RegistrarTipoIdentificacionUseCase implements UseCase<TipoIdentificacionDomain,String>{
 
 	private DAOFactory factoria;
-	
+
 
 	public RegistrarTipoIdentificacionUseCase(final DAOFactory factoria) {
 		setFatoria(factoria);
 	}
-	
-	
+
+
 
 	@Override
-	public final void execute(TipoIdentificacionDomain domain) {
+	public final void crear(TipoIdentificacionDomain domain) {
 		RegistrarTipoIdentificacionValidator.ejecutar(domain);
 		validarNoExistenciaTipoIdentificacionConMismoCodigo(domain.getCodigo());
 		validarNoExistenciaTipoIdentificacionConMismoNombre(domain.getNombre());
@@ -39,29 +39,29 @@ public final class RegistrarTipoIdentificacionUseCase implements UseCase<TipoIde
 	}
 
 	private final void validarNoExistenciaTipoIdentificacionConMismoNombre(final String nombre) {
-		
+
 		var domain = TipoIdentificacionDomain.crear(null, null, nombre, false);
 		var entity=TipoIdentificacionEntityMapper.convertToEntity(domain);
 		var resultados = getTipoIdentificacionDAO().consultar(entity);
-		
+
 		if(!resultados.isEmpty()) {
 			var mensajeUsuario = "Ya existe un tipo de identificacion con el nombre "+nombre;
 			throw ServiceGestorGimnasioException.crear(mensajeUsuario);
 		}
 	}
-	
+
 	private final void validarNoExistenciaTipoIdentificacionConMismoCodigo(final String codigo) {
-		
+
 		var domain = TipoIdentificacionDomain.crear(null, codigo, null, false);
 		var entity=TipoIdentificacionEntityMapper.convertToEntity(domain);
 		var resultados = getTipoIdentificacionDAO().consultar(entity);
-		
+
 		if(!resultados.isEmpty()) {
 			var mensajeUsuario = "Ya existe un tipo de identificacion con el codigo "+codigo;
 			throw ServiceGestorGimnasioException.crear(mensajeUsuario);
 		}
 	}
-	
+
 private final TipoIdentificacionDomain obtenerIdentificadorTipoIdentificacion(final TipoIdentificacionDomain domain) {
 	Optional<TipoIdentificacionEntity> optional = Optional.empty();
 	UUID uuid;
@@ -71,7 +71,7 @@ private final TipoIdentificacionDomain obtenerIdentificadorTipoIdentificacion(fi
 	}while(optional.isPresent());
 	return TipoIdentificacionDomain.crear(uuid, domain.getCodigo(), domain.getNombre(), domain.isEstado());
 }
-	
+
 
 	private final DAOFactory getFactoria() {
 		return factoria;
@@ -89,6 +89,8 @@ private final TipoIdentificacionDomain obtenerIdentificadorTipoIdentificacion(fi
 	private final TipoIdentificacionDAO getTipoIdentificacionDAO() {
 		return getFactoria().obtenerTipoIdentificacionDAO();
 	}
+
+
 
 
 

@@ -11,19 +11,19 @@ public final class ConsultarPorIdTipoIdentificacionValidator implements Validato
 
 
 	private static final Validator<TipoIdentificacionDomain> instancia = new ConsultarPorIdTipoIdentificacionValidator();
-	
+
 	private ConsultarPorIdTipoIdentificacionValidator() {
 		super();
 	}
-	
+
 	public static final void ejecutar(final TipoIdentificacionDomain data) {
 		instancia.execute(data);
 	}
-	
+
 	@Override
 	public void execute(TipoIdentificacionDomain data) {
 		TipoIdentificacionValidationRule.ejecutarValidacion(data);
-		IdTipoIdentificacionValidationRule.ejecutarValidacion(data.getId());		
-	}	
+		IdTipoIdentificacionValidationRule.ejecutarValidacion(data.getId());
+	}
 
 }

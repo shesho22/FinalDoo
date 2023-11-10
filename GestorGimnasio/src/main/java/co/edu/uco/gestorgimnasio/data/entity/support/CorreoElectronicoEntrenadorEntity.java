@@ -3,8 +3,8 @@ package co.edu.uco.gestorgimnasio.data.entity.support;
 public class CorreoElectronicoEntrenadorEntity {
 	private String correoElectronico;
 	private boolean correoElectronicoConfirmado;
-	
-	
+
+
 	private CorreoElectronicoEntrenadorEntity(final String correoElectronico,final boolean correoElectronicoConfirmado) {
 		setCorreoElectronico(correoElectronico);
 		setCorreoElectronicoConfirmado(correoElectronicoConfirmado);
@@ -54,6 +54,6 @@ public class CorreoElectronicoEntrenadorEntity {
 	    }
 	}
 
-	
-	
+
+
 }

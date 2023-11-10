@@ -28,5 +28,5 @@ public class ModificarEjercicioValidator implements Validator<EjercicioDomain>{
         SeriesEjercicioValidationRule.ejecutarValidacion(data.getSeries());
         RepeticionesEjercicioValidationRule.ejecutarValidacion(data.getRepeticiones());
     }
-	
+
 }

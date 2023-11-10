@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.DataGestorGimnasioException;
 import co.edu.uco.gestorgimnasio.data.dao.RutinaDAO;
 import co.edu.uco.gestorgimnasio.data.dao.base.SQLDAO;
@@ -30,8 +29,8 @@ public final class RutinaSQLServerDAO extends SQLDAO implements RutinaDAO {
 	public RutinaSQLServerDAO(final Connection conexion) {
 		super(conexion);
 	}
-	
-	
+
+
 	@Override
 	public void crear(RutinaEntity rutina, List<EjercicioEntity> ejercicios) {
 	    try {
@@ -148,7 +147,7 @@ public final class RutinaSQLServerDAO extends SQLDAO implements RutinaDAO {
 	public void eliminar(UUID rutinaId) {
 	    final var sentencia = new StringBuilder();
 	    sentencia.append("DELETE FROM rutina_ejercicio WHERE rutina_id = ?");
-	    
+
 	    try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())) {
 	        sentenciaPreparada.setObject(1, rutinaId);
 	        sentenciaPreparada.executeUpdate();
@@ -161,9 +160,9 @@ public final class RutinaSQLServerDAO extends SQLDAO implements RutinaDAO {
 	        var mensajeTécnico = "Se ha producido un error inesperado al eliminar las asociaciones de ejercicios con la rutina en la base de datos SQL Server. Revise el registro completo del error para identificar la causa.";
 	        throw DataGestorGimnasioException.crear(excepcion, mensajeUsuario, mensajeTécnico);
 	    }
-	    sentencia.setLength(0); 
+	    sentencia.setLength(0);
 	    sentencia.append("DELETE FROM rutina WHERE id = ?");
-	    
+
 	    try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())) {
 	        sentenciaPreparada.setObject(1, rutinaId);
 	        sentenciaPreparada.executeUpdate();
@@ -178,7 +177,7 @@ public final class RutinaSQLServerDAO extends SQLDAO implements RutinaDAO {
 	    }
 	}
 
-	
+
 	@Override
 	public Optional<RutinaEntity> consultarPorId(UUID id) {
 	    final StringBuilder sentencia = new StringBuilder();
@@ -204,7 +203,7 @@ public final class RutinaSQLServerDAO extends SQLDAO implements RutinaDAO {
 	    return resultado;
 	}
 
-	
+
 	private Optional<RutinaEntity> ejecutarConsultaPorId(PreparedStatement sentenciaPreparada) {
 	    Optional<RutinaEntity> resultado = Optional.empty();
 
@@ -215,7 +214,7 @@ public final class RutinaSQLServerDAO extends SQLDAO implements RutinaDAO {
 	            EntrenadorEntity entrenador = obtenerEntrenadorPorRutina(UUID.fromString(resultados.getObject("id").toString()));
 	            List<EjercicioEntity> listaDeEjercicios = obtenerEjerciciosPorRutina(UUID.fromString(resultados.getObject("id").toString()));
 	            RutinaEntity rutina = RutinaEntity.crear(rutinaId, nombre, entrenador, listaDeEjercicios);
-	            resultado = Optional.of(rutina); 
+	            resultado = Optional.of(rutina);
 	        }
 	    } catch (SQLException excepcion) {
 	        var mensajeUsuario = "Se ha presentado un problema tratando de consultar la información de la rutina por el identificador deseado...";
@@ -260,7 +259,7 @@ public final class RutinaSQLServerDAO extends SQLDAO implements RutinaDAO {
 	@Override
 	public List<RutinaEntity> consultar(RutinaEntity entity) {
 	    List<RutinaEntity> rutinas = new ArrayList<>();
-	    final var parametros = new ArrayList<Object>();
+	    final var parametros = new ArrayList<>();
 
 	    final String sentencia = formarSentenciaConsulta(entity, parametros);
 
@@ -286,7 +285,7 @@ public final class RutinaSQLServerDAO extends SQLDAO implements RutinaDAO {
 	    int indice = 1;
 	    for (Object parametro : parametros) {
 	        if (parametro instanceof UUID) {
-	            sentenciaPreparada.setObject(indice, (UUID) parametro);
+	            sentenciaPreparada.setObject(indice, parametro);
 	        } else if (parametro instanceof String) {
 	            sentenciaPreparada.setString(indice, (String) parametro);
 	        }
@@ -302,7 +301,7 @@ public final class RutinaSQLServerDAO extends SQLDAO implements RutinaDAO {
 	            UUID rutinaId = UUID.fromString(resultSet.getObject("id").toString());
 	            String nombre = resultSet.getString("nombre");
 	            EntrenadorEntity entrenador = obtenerEntrenadorPorRutina(UUID.fromString(resultSet.getObject("id").toString()));
-	            List<EjercicioEntity> listaDeEjercicios = obtenerEjerciciosPorRutina(UUID.fromString(resultSet.getObject("id").toString()));;
+	            List<EjercicioEntity> listaDeEjercicios = obtenerEjerciciosPorRutina(UUID.fromString(resultSet.getObject("id").toString()));
 	            RutinaEntity rutina = RutinaEntity.crear(rutinaId, nombre, entrenador, listaDeEjercicios);
 	            rutinas.add(rutina);
 	        }
@@ -318,7 +317,7 @@ public final class RutinaSQLServerDAO extends SQLDAO implements RutinaDAO {
 
 	    return rutinas;
 	}
-	
+
 	private List<EjercicioEntity> obtenerEjerciciosPorRutina(UUID rutinaId) {
 	    List<EjercicioEntity> ejercicios = new ArrayList<>();
 

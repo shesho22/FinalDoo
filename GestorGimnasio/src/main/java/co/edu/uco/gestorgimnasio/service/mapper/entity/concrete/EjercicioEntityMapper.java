@@ -15,11 +15,11 @@ import co.edu.uco.gestorgimnasio.service.mapper.entity.EntityMapper;
 public final class EjercicioEntityMapper implements EntityMapper<EjercicioEntity, EjercicioDomain>{
 
 	private static final EntityMapper<EjercicioEntity, EjercicioDomain> instancia = new EjercicioEntityMapper();
-	
+
 	private EjercicioEntityMapper() {
 		super();
 	}
-	
+
 	@Override
 	public final EjercicioDomain toDomain(final EjercicioEntity entity) {
 		if(UtilObjeto.esNulo(entity)) {
@@ -28,7 +28,7 @@ public final class EjercicioEntityMapper implements EntityMapper<EjercicioEntity
 		}
 		return EjercicioDomain.crear(entity.getId(),entity.getNombre(),entity.getDescripcion(),entity.getSeries(),entity.getRepeticiones());
 	}
-	
+
 	@Override
 	public final EjercicioEntity toEntity(final EjercicioDomain domain) {
 		if(UtilObjeto.esNulo(domain)) {
@@ -36,13 +36,13 @@ public final class EjercicioEntityMapper implements EntityMapper<EjercicioEntity
 			throw ServiceGestorGimnasioException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000000004),"Se ha presentado un problena en el metodo toEntity .No es posible mapear un cliente diminio a partir de un tipo de identificacion entity nula");
 		}
 		return EjercicioEntity.crear(domain.getId(),domain.getNombre(),domain.getDescripcion(),domain.getRepeticiones(),domain.getSeries());
-	
+
 	}
-	
+
 	public static final EjercicioDomain convertToDomain(final EjercicioEntity entity) {
 		return instancia.toDomain(entity);
 	}
-	
+
 	public static final EjercicioEntity convertToEntity(final EjercicioDomain domain) {
 		return instancia.toEntity(domain);
 	}

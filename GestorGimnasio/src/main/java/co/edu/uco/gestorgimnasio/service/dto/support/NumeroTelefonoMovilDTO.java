@@ -2,26 +2,26 @@ package co.edu.uco.gestorgimnasio.service.dto.support;
 
 import co.edu.uco.gestorgimnasio.crosscutting.util.UtilTexto;
 
-public class NumeroTelefonoMovilClienteDTO {
+public class NumeroTelefonoMovilDTO {
 	private String numeroTelefonoMovil;
 	private boolean numeroTelefonoMovilConfirmado;
-	
-	
-	public NumeroTelefonoMovilClienteDTO() {
+
+
+	public NumeroTelefonoMovilDTO() {
 		setNumeroTelefonoMovil(UtilTexto.VACIO);
 		setNumeroTelefonoMovilConfirmado(false);
 	}
-	
-	public NumeroTelefonoMovilClienteDTO(final String numeroTelefonoMovil, final boolean numeroTelefonoMovilConfirmado) {
+
+	public NumeroTelefonoMovilDTO(final String numeroTelefonoMovil, final boolean numeroTelefonoMovilConfirmado) {
 		setNumeroTelefonoMovil(numeroTelefonoMovil);
 		setNumeroTelefonoMovilConfirmado(numeroTelefonoMovilConfirmado);
 	}
 
 
-	public static final NumeroTelefonoMovilClienteDTO crear(final String numeroTelefonoMovil, final boolean numeroTelefonoMovilConfirmado) {
-		return new NumeroTelefonoMovilClienteDTO(numeroTelefonoMovil, numeroTelefonoMovilConfirmado);
+	public static final NumeroTelefonoMovilDTO crear(final String numeroTelefonoMovil, final boolean numeroTelefonoMovilConfirmado) {
+		return new NumeroTelefonoMovilDTO(numeroTelefonoMovil, numeroTelefonoMovilConfirmado);
 	}
-	
+
 	private final void setNumeroTelefonoMovil(final String numeroTelefonoMovil) {
 		this.numeroTelefonoMovil = numeroTelefonoMovil;
 	}
@@ -38,5 +38,5 @@ public class NumeroTelefonoMovilClienteDTO {
 	public final boolean isNumeroTelefonoMovilConfirmado() {
 		return numeroTelefonoMovilConfirmado;
 	}
-	
+
 }

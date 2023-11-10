@@ -5,33 +5,33 @@ import java.util.UUID;
 
 import co.edu.uco.gestorgimnasio.crosscutting.util.UtilTexto;
 import co.edu.uco.gestorgimnasio.crosscutting.util.UtilUUID;
-import co.edu.uco.gestorgimnasio.service.dto.support.CorreoElectronicoClienteDTO;
-import co.edu.uco.gestorgimnasio.service.dto.support.NombreCompletoClienteDTO;
-import co.edu.uco.gestorgimnasio.service.dto.support.NumeroTelefonoMovilClienteDTO;
+import co.edu.uco.gestorgimnasio.service.dto.support.CorreoElectronicoDTO;
+import co.edu.uco.gestorgimnasio.service.dto.support.NombreCompletoDTO;
+import co.edu.uco.gestorgimnasio.service.dto.support.NumeroTelefonoMovilDTO;
 
 public class EntrenadorDTO {
-	private UUID id; 
+	private UUID id;
 	private TipoIdentificacionDTO tipoidentificacion;
 	private String identificacion;
-	private NombreCompletoClienteDTO nombreCompleto;
-	private CorreoElectronicoClienteDTO correoElectornico;
-	private NumeroTelefonoMovilClienteDTO numeroTelefonoMovil;
+	private NombreCompletoDTO nombreCompleto;
+	private CorreoElectronicoDTO correoElectornico;
+	private NumeroTelefonoMovilDTO numeroTelefonoMovil;
 	private LocalDate fechaNacimiento;
-	
-	
+
+
 	public EntrenadorDTO() {
 		setId(UtilUUID.getDefaultUUID(id));
 		setTipoidentificacion(new TipoIdentificacionDTO());
 		setIdentificacion(UtilTexto.VACIO);
-		setNombreCompleto(new NombreCompletoClienteDTO());
-		setCorreoElectornico(new CorreoElectronicoClienteDTO());
-		setNumeroTelefonoMovil(new NumeroTelefonoMovilClienteDTO());
+		setNombreCompleto(new NombreCompletoDTO());
+		setCorreoElectornico(new CorreoElectronicoDTO());
+		setNumeroTelefonoMovil(new NumeroTelefonoMovilDTO());
 		setFechaNacimiento(LocalDate.of(2050, 1, 1));
 	}
-	
+
 	public EntrenadorDTO(final UUID id,final TipoIdentificacionDTO tipoidentificacion,final String identificacion,
-			final NombreCompletoClienteDTO nombreCompleto,final CorreoElectronicoClienteDTO correoElectornico,
-			final NumeroTelefonoMovilClienteDTO numeroTelefonoMovil,final LocalDate fechaNacimiento) {
+			final NombreCompletoDTO nombreCompleto,final CorreoElectronicoDTO correoElectornico,
+			final NumeroTelefonoMovilDTO numeroTelefonoMovil,final LocalDate fechaNacimiento) {
 		setId(id);
 		setTipoidentificacion(tipoidentificacion);
 		setIdentificacion(identificacion);
@@ -40,8 +40,12 @@ public class EntrenadorDTO {
 		setNumeroTelefonoMovil(numeroTelefonoMovil);
 		setFechaNacimiento(fechaNacimiento);
 	}
-	
-	
+
+
+	public static final EntrenadorDTO crear(UUID uuid, TipoIdentificacionDTO tipoIdentificacionDTO, String string, NombreCompletoDTO nombreCompletoDTO, CorreoElectronicoDTO correoElectronicoDTO, NumeroTelefonoMovilDTO numeroTelefonoMovilDTO, LocalDate localDate) {
+		return new EntrenadorDTO(uuid,tipoIdentificacionDTO,string,nombreCompletoDTO,correoElectronicoDTO,numeroTelefonoMovilDTO,localDate);
+	}
+
 	public static final EntrenadorDTO crear() {
 		return new EntrenadorDTO();
 	}
@@ -67,24 +71,24 @@ public class EntrenadorDTO {
 		this.identificacion = identificacion;
 		return this;
 	}
-	public final NombreCompletoClienteDTO getNombreCompleto() {
+	public final NombreCompletoDTO getNombreCompleto() {
 		return nombreCompleto;
 	}
-	public final EntrenadorDTO setNombreCompleto(final NombreCompletoClienteDTO nombreCompleto) {
+	public final EntrenadorDTO setNombreCompleto(final NombreCompletoDTO nombreCompleto) {
 		this.nombreCompleto = nombreCompleto;
 		return this;
 	}
-	public final CorreoElectronicoClienteDTO getCorreoElectornico() {
+	public final CorreoElectronicoDTO getCorreoElectornico() {
 		return correoElectornico;
 	}
-	public final EntrenadorDTO setCorreoElectornico(final CorreoElectronicoClienteDTO correoElectornico) {
+	public final EntrenadorDTO setCorreoElectornico(final CorreoElectronicoDTO correoElectornico) {
 		this.correoElectornico = correoElectornico;
 		return this;
 	}
-	public final NumeroTelefonoMovilClienteDTO getNumeroTelefonoMovil() {
+	public final NumeroTelefonoMovilDTO getNumeroTelefonoMovil() {
 		return numeroTelefonoMovil;
 	}
-	public final EntrenadorDTO setNumeroTelefonoMovil(final NumeroTelefonoMovilClienteDTO numeroTelefonoMovil) {
+	public final EntrenadorDTO setNumeroTelefonoMovil(final NumeroTelefonoMovilDTO numeroTelefonoMovil) {
 		this.numeroTelefonoMovil = numeroTelefonoMovil;
 		return this;
 	}
@@ -95,6 +99,6 @@ public class EntrenadorDTO {
 		this.fechaNacimiento = fechaNacimiento;
 		return this;
 	}
-	
-	
+
+
 }

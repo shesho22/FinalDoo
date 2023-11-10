@@ -6,18 +6,10 @@ import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGi
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.TipoDAOFactory;
 import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.tipoidentificacion.ConsultarTipoIdentificacionUseCase;
-import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.tipoidentificacion.ConsultarTipoIdentificacionValidator;
-import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentificacionDomain;
-import co.edu.uco.gestorgimnasio.service.dto.TipoIdentificacionDTO;
-import co.edu.uco.gestorgimnasio.service.facade.Facade;
-import co.edu.uco.gestorgimnasio.service.mapper.dto.concrete.TipoIdentificacionDTOMapper;
 
-public final class ConsultarTipoIdentificacionFacade implements Facade<TipoIdentificacionDTO> {
+public final class ConsultarTipoIdentificacionFacade  {
 
-    @Override
-    public void execute(TipoIdentificacionDTO dto) {
-        final TipoIdentificacionDomain domain = TipoIdentificacionDTOMapper.convertirToDomain(dto);
-        ConsultarTipoIdentificacionValidator.ejecutar(domain);
+	public void execute() {
 
         final DAOFactory daoFactory = DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
 
@@ -25,10 +17,9 @@ public final class ConsultarTipoIdentificacionFacade implements Facade<TipoIdent
             daoFactory.iniciarTransaccion();
 
             var useCase = new ConsultarTipoIdentificacionUseCase(daoFactory);
-            useCase.execute(domain);
+            useCase.obtenerTodos();
 
             daoFactory.confirmarTransaccion();
-
         } catch (final GestorGimnasioException excepcion) {
             daoFactory.cancelarTransaccion();
             throw excepcion;

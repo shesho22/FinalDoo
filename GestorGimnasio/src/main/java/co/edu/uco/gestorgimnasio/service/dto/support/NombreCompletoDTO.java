@@ -2,35 +2,35 @@ package co.edu.uco.gestorgimnasio.service.dto.support;
 
 import co.edu.uco.gestorgimnasio.crosscutting.util.UtilTexto;
 
-public class NombreCompletoClienteDTO {
+public class NombreCompletoDTO {
 	private String primerNombre;
 	private String segundoNombre;
 	private String primerApellido;
 	private String segundoApellido;
-	
-	
-	public NombreCompletoClienteDTO() {
+
+
+	public NombreCompletoDTO() {
 		setPrimerNombre(UtilTexto.VACIO);
 		setSegundoNombre(UtilTexto.VACIO);
 		setPrimerApellido(UtilTexto.VACIO);
 		setSegundoApellido(UtilTexto.VACIO);
 	}
-	
-	public NombreCompletoClienteDTO(final String primerNombre, final String segundoNombre, final String primerApellido,
+
+	public NombreCompletoDTO(final String primerNombre, final String segundoNombre, final String primerApellido,
 			final String segundoApellido) {
 		setPrimerNombre(primerNombre);
 		setSegundoNombre(segundoNombre);
 		setPrimerApellido(primerApellido);
 		setSegundoApellido(segundoApellido);
 	}
-	
-	public static final NombreCompletoClienteDTO crear(final String primerNombre, final String segundoNombre, final String primerApellido,
+
+	public static final NombreCompletoDTO crear(final String primerNombre, final String segundoNombre, final String primerApellido,
 			final String segundoApellido) {
-		return new NombreCompletoClienteDTO(primerNombre, segundoNombre, primerApellido, segundoApellido);
+		return new NombreCompletoDTO(primerNombre, segundoNombre, primerApellido, segundoApellido);
 	}
-	
-	
-	
+
+
+
 	private final void setPrimerNombre(String primerNombre) {
 		this.primerNombre = primerNombre;
 	}
@@ -43,7 +43,7 @@ public class NombreCompletoClienteDTO {
 	private final void setSegundoApellido(String segundoApellido) {
 		this.segundoApellido = segundoApellido;
 	}
-	
+
 	public final String getPrimerNombre() {
 		return primerNombre;
 	}
@@ -56,7 +56,7 @@ public class NombreCompletoClienteDTO {
 	public final String getSegundoApellido() {
 		return segundoApellido;
 	}
-	
-	
+
+
 
 }

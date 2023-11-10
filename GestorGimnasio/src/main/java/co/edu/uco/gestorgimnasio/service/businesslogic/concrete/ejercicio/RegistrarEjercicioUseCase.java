@@ -10,7 +10,7 @@ import co.edu.uco.gestorgimnasio.service.domain.ejercicio.EjercicioDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.EjercicioEntityMapper;
 
 
-public final class RegistrarEjercicioUseCase implements UseCase<EjercicioDomain> {
+public final class RegistrarEjercicioUseCase implements UseCase<EjercicioDomain,String> {
 
     private DAOFactory factoria;
 
@@ -19,7 +19,7 @@ public final class RegistrarEjercicioUseCase implements UseCase<EjercicioDomain>
     }
 
     @Override
-    public final void execute(EjercicioDomain domain) {
+    public final void crear(EjercicioDomain domain) {
         validarExistenciaEjercicioConMismoNombre(domain.getNombre());
         domain = registrarEjercicio(domain);
     }
@@ -27,7 +27,7 @@ public final class RegistrarEjercicioUseCase implements UseCase<EjercicioDomain>
     private EjercicioDomain registrarEjercicio(final EjercicioDomain domain) {
         var entity = EjercicioEntityMapper.convertToEntity(domain);
         getEjercicioDAO().crear(entity);
-        return domain; 
+        return domain;
     }
 
     private void validarExistenciaEjercicioConMismoNombre(final String nombre) {

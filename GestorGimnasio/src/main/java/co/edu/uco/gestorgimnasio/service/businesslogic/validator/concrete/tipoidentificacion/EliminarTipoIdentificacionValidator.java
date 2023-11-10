@@ -13,22 +13,22 @@ public final class EliminarTipoIdentificacionValidator implements Validator<Tipo
 
 
 	private static final Validator<TipoIdentificacionDomain> instancia = new EliminarTipoIdentificacionValidator();
-	
+
 	private EliminarTipoIdentificacionValidator() {
 		super();
 	}
-	
+
 	public static final void ejecutar(final TipoIdentificacionDomain data) {
 		instancia.execute(data);
 	}
-	
+
 	@Override
 	public void execute(TipoIdentificacionDomain data) {
 		TipoIdentificacionValidationRule.ejecutarValidacion(data);
 		IdTipoIdentificacionValidationRule.ejecutarValidacion(data.getId());
 		CodigoTipoIdentificacionValidationRule.ejecutarValidacion(data.getCodigo());
 		NombreTipoIdentificacionValidationRule.ejecutarValidacion(data.getNombre());
-		
-	}	
+
+	}
 
 }

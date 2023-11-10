@@ -7,8 +7,8 @@ public class TipoIdentificacionEntity {
 	private String codigo;
 	private String nombre;
 	private boolean estado;
-	
-	
+
+
 	private TipoIdentificacionEntity(final UUID id, final String codigo, final String nombre,final  boolean estado) {
 		setId(id);
 		setCodigo(codigo);
@@ -17,11 +17,11 @@ public class TipoIdentificacionEntity {
 	}
 
 
-	
+
 	public static final TipoIdentificacionEntity crear (final UUID id, final String codigo, final String nombre,final  boolean estado) {
 		return new TipoIdentificacionEntity(id,codigo,nombre,estado);
 	}
-	
+
 	public final UUID getId() {
 		return id;
 	}

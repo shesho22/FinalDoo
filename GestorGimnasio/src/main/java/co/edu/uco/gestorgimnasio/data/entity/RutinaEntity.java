@@ -1,7 +1,7 @@
 package co.edu.uco.gestorgimnasio.data.entity;
 
-import java.util.UUID;
 import java.util.List;
+import java.util.UUID;
 
 public class RutinaEntity {
     private UUID id;

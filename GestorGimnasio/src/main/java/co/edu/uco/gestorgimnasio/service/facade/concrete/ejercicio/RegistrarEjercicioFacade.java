@@ -18,17 +18,17 @@ public final class RegistrarEjercicioFacade implements Facade<EjercicioDTO>{
 	public final void execute(EjercicioDTO dto) {
 		final EjercicioDomain domain = EjercicioDTOMapper.convertirToDomain(dto);
 		RegistrarEjercicioValidator.ejecutar(domain);
-		
+
 		final DAOFactory daoFactory =DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
-		
+
 		try {
 			daoFactory.iniciarTransaccion();
-			
+
 			var useCase = new RegistrarEjercicioUseCase(daoFactory);
 			useCase.execute(domain);
-			
+
 			daoFactory.confirmarTransaccion();
-			
+
 		}catch (final GestorGimnasioException excepcion) {
 			daoFactory.cancelarTransaccion();
 			throw excepcion;
@@ -43,5 +43,5 @@ public final class RegistrarEjercicioFacade implements Facade<EjercicioDTO>{
 		}
 	}
 
-	
+
 }

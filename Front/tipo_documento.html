@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tipo de Documento</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="app">
+    <h1>Tipo de Documento</h1>
+
+    <!-- Botones para navegar a otras páginas -->
+    <div id="navigation">
+      <button onclick="window.location.href='index.html'">Entrenador</button>
+      <button onclick="window.location.href='ejercicio.html'">Ejercicio</button>
+      <button onclick="window.location.href='rutina.html'">Rutina</button>
+    </div>
+
+    <!-- Agrega esto donde quieras mostrar las respuestas en tu página -->
+    <div id="response-message"></div>
+
+    <div id="content">
+      <div id="crud-form">
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" placeholder="Código" required>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Nombre" required>
+
+        <button onclick="createDocumentType()">Crear Tipo de Documento</button>
+      </div>
+
+      <div id="user-list">
+        <h2>Lista de Tipos de Documento</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nombre</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="documentTypes"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="tipo_documento.js"></script>
+</body>
+</html>

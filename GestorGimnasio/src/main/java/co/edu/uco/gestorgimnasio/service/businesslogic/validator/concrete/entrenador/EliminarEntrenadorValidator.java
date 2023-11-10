@@ -3,8 +3,8 @@ package co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.entre
 import co.edu.uco.gestorgimnasio.service.businesslogic.validator.Validator;
 import co.edu.uco.gestorgimnasio.service.domain.entrenador.EntrenadorDomain;
 import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.CorreoElectronicoValidationRule;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.FechaNacimientoValidationRule;
 import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.EntrenadorValidationRule;
+import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.FechaNacimientoValidationRule;
 import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.IdentificacionValidationRule;
 import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.NombreCompletoValidationRule;
 import co.edu.uco.gestorgimnasio.service.domain.entrenador.rules.NumeroTelefonoMovilValidationRule;
@@ -12,11 +12,11 @@ import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.rules.TipoIde
 
 public class EliminarEntrenadorValidator implements Validator<EntrenadorDomain>{
 	private static final Validator<EntrenadorDomain> instancia = new EliminarEntrenadorValidator();
-	
+
 	private EliminarEntrenadorValidator() {
 		super();
 	}
-	
+
 	public static final void ejecutar(final EntrenadorDomain data) {
 		instancia.execute(data);
 	}
@@ -31,5 +31,5 @@ public class EliminarEntrenadorValidator implements Validator<EntrenadorDomain>{
 	    NumeroTelefonoMovilValidationRule.ejecutarValidacion(data.getNumeroTelefonoMovil());
 	    FechaNacimientoValidationRule.ejecutarValidacion(data.getFechaNacimiento());
 	}
-	
+
 }

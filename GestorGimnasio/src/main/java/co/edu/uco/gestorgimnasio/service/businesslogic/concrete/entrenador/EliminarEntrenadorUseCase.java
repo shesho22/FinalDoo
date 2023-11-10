@@ -10,7 +10,7 @@ import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.service.businesslogic.UseCase;
 import co.edu.uco.gestorgimnasio.service.domain.entrenador.EntrenadorDomain;
 
-public final class EliminarEntrenadorUseCase implements UseCase<EntrenadorDomain> {
+public final class EliminarEntrenadorUseCase implements UseCase<UUID,String> {
 
     private DAOFactory factoria;
 
@@ -19,17 +19,16 @@ public final class EliminarEntrenadorUseCase implements UseCase<EntrenadorDomain
     }
 
     @Override
-    public final void execute(EntrenadorDomain domain) {
-        validarExistenciaEntrenador(domain.getId());
-        eliminarEntrenador(domain);
+    public final void eliminar(UUID id) {
+    	validarExistencia(id);
+    	eliminarPorId(id);
     }
 
-    private void eliminarEntrenador(final EntrenadorDomain domain) {
-        EntrenadorDAO entrenadorDAO = getEntrenadorDAO();
-        entrenadorDAO.eliminar(domain.getId());
+    private void eliminarPorId(final UUID id) {
+        getEntrenadorDAO().eliminar(id);
     }
 
-    private final void validarExistenciaEntrenador(final UUID id) {
+    private final void validarExistencia(final UUID id) {
         var resultado = getEntrenadorDAO().consultarPorId(id);
         if (resultado.isEmpty()) {
             var mensajeUsuario = "No existe un tipo de identificación con el ID " + id;

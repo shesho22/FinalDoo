@@ -10,15 +10,15 @@ import co.edu.uco.gestorgimnasio.service.domain.ValidatorRule;
 public class IdEjercicioValidationRule implements ValidatorRule<UUID>{
 
 	private static final ValidatorRule<UUID> instancia = new IdEjercicioValidationRule();
-	
-	private IdEjercicioValidationRule() {	
+
+	private IdEjercicioValidationRule() {
 		super();
 	}
-	
+
 	public static final void ejecutarValidacion(final UUID dato) {
 		instancia.validar(dato);
 	}
-	
+
 	@Override
 	public final void validar(final UUID dato) {
 		validarObligatoriedad(dato);

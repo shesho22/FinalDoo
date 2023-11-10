@@ -3,24 +3,24 @@ package co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion;
 import java.util.UUID;
 
 public class TipoIdentificacionDomain {
-	
+
 	private UUID id;
 	private String codigo;
 	private String nombre;
 	private boolean estado;
-	
-	
+
+
 	public TipoIdentificacionDomain(final UUID id,final String codigo,final String nombre,final boolean estado) {
 		setId(id);
 		setCodigo(codigo);
 		setNombre(nombre);
 		setEstado(estado);
 	}
-	
+
 	public static final TipoIdentificacionDomain crear(final UUID id,final String codigo,final String nombre,final boolean estado ) {
 		return new TipoIdentificacionDomain(id,codigo,nombre,estado);
 	}
-	
+
 	public final UUID getId() {
 		return id;
 	}

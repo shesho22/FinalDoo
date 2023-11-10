@@ -3,23 +3,23 @@ package co.edu.uco.gestorgimnasio.service.domain.entrenador;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.support.CorreoElectronicoClienteDomain;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.support.NombreCompletoClienteDomain;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.support.NumeroTelefonoMovilClienteDomain;
+import co.edu.uco.gestorgimnasio.service.domain.entrenador.support.CorreoElectronicoDomain;
+import co.edu.uco.gestorgimnasio.service.domain.entrenador.support.NombreCompletoDomain;
+import co.edu.uco.gestorgimnasio.service.domain.entrenador.support.NumeroTelefonoMovilDomain;
 import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 
 public class EntrenadorDomain {
-	
-	private UUID id; 
+
+	private UUID id;
 	private TipoIdentificacionDomain tipoidentificacion;
 	private String identificacion;
-	private NombreCompletoClienteDomain nombreCompleto;
-	private CorreoElectronicoClienteDomain correoElectornico;
-	private NumeroTelefonoMovilClienteDomain numeroTelefonoMovil;
+	private NombreCompletoDomain nombreCompleto;
+	private CorreoElectronicoDomain correoElectornico;
+	private NumeroTelefonoMovilDomain numeroTelefonoMovil;
 	private LocalDate fechaNacimiento;
-	
-	
-	public EntrenadorDomain(final UUID id,final TipoIdentificacionDomain tipoIdentificacion,final String identificacion,final NombreCompletoClienteDomain nombreCompleto,final CorreoElectronicoClienteDomain correoElectronico,final NumeroTelefonoMovilClienteDomain numeroTelefonoMovil,final LocalDate fechaNacimiento) {
+
+
+	public EntrenadorDomain(final UUID id,final TipoIdentificacionDomain tipoIdentificacion,final String identificacion,final NombreCompletoDomain nombreCompleto,final CorreoElectronicoDomain correoElectronico,final NumeroTelefonoMovilDomain numeroTelefonoMovil,final LocalDate fechaNacimiento) {
 		setId(id);
 		setTipoidentificacion(tipoIdentificacion);
 		setIdentificacion(identificacion);
@@ -28,11 +28,11 @@ public class EntrenadorDomain {
 		setNumeroTelefonoMovil(numeroTelefonoMovil);
 		setFechaNacimiento(fechaNacimiento);
 	}
-	
-	public static final EntrenadorDomain crear(final UUID id,final TipoIdentificacionDomain tipoIdentificacion,final String identificacion,final NombreCompletoClienteDomain nombreCompleto,final CorreoElectronicoClienteDomain correoElectronico,final NumeroTelefonoMovilClienteDomain numeroTelefonoMovil,final LocalDate fechaNacimiento) {
+
+	public static final EntrenadorDomain crear(final UUID id,final TipoIdentificacionDomain tipoIdentificacion,final String identificacion,final NombreCompletoDomain nombreCompleto,final CorreoElectronicoDomain correoElectronico,final NumeroTelefonoMovilDomain numeroTelefonoMovil,final LocalDate fechaNacimiento) {
 		return new EntrenadorDomain(id, tipoIdentificacion, identificacion, nombreCompleto, correoElectronico, numeroTelefonoMovil, fechaNacimiento);
-	} 
-	
+	}
+
 	public final UUID getId() {
 		return id;
 	}
@@ -59,29 +59,29 @@ public class EntrenadorDomain {
 		return this;
 	}
 
-	public final NombreCompletoClienteDomain getNombreCompleto() {
+	public final NombreCompletoDomain getNombreCompleto() {
 		return nombreCompleto;
 	}
 
-	public final EntrenadorDomain setNombreCompleto(final NombreCompletoClienteDomain nombreCompleto) {
+	public final EntrenadorDomain setNombreCompleto(final NombreCompletoDomain nombreCompleto) {
 		this.nombreCompleto = nombreCompleto;
 		return this;
 	}
 
-	public final CorreoElectronicoClienteDomain getCorreoElectornico() {
+	public final CorreoElectronicoDomain getCorreoElectornico() {
 		return correoElectornico;
 	}
 
-	public final EntrenadorDomain setCorreoElectornico(final CorreoElectronicoClienteDomain correoElectornico) {
+	public final EntrenadorDomain setCorreoElectornico(final CorreoElectronicoDomain correoElectornico) {
 		this.correoElectornico = correoElectornico;
 		return this;
 	}
 
-	public final NumeroTelefonoMovilClienteDomain getNumeroTelefonoMovil() {
+	public final NumeroTelefonoMovilDomain getNumeroTelefonoMovil() {
 		return numeroTelefonoMovil;
 	}
 
-	public final EntrenadorDomain setNumeroTelefonoMovil(final NumeroTelefonoMovilClienteDomain numeroTelefonoMovil) {
+	public final EntrenadorDomain setNumeroTelefonoMovil(final NumeroTelefonoMovilDomain numeroTelefonoMovil) {
 		this.numeroTelefonoMovil = numeroTelefonoMovil;
 		return this;
 	}
@@ -94,7 +94,7 @@ public class EntrenadorDomain {
 		this.fechaNacimiento = fechaNacimiento;
 		return this;
 	}
-	
-	
+
+
 
 }

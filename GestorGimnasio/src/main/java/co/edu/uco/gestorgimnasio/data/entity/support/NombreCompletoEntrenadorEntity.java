@@ -5,8 +5,8 @@ public final class NombreCompletoEntrenadorEntity {
 	private String segundoNombre;
 	private String primerApellido;
 	private String segundoApellido;
-	
-	
+
+
 	private NombreCompletoEntrenadorEntity(final String primerNombre, final String segundoNombre, final String primerApellido,
 			final String segundoApellido) {
 		setPrimerNombre(primerNombre);
@@ -14,14 +14,14 @@ public final class NombreCompletoEntrenadorEntity {
 		setPrimerApellido(primerApellido);
 		setSegundoApellido(segundoApellido);
 	}
-	
+
 	public static final NombreCompletoEntrenadorEntity crear(final String primerNombre, final String segundoNombre, final String primerApellido,
 			final String segundoApellido) {
 		return new NombreCompletoEntrenadorEntity(primerNombre, segundoNombre, primerApellido, segundoApellido);
 	}
-	
-	
-	
+
+
+
 	private final void setPrimerNombre(String primerNombre) {
 		this.primerNombre = primerNombre;
 	}
@@ -34,7 +34,7 @@ public final class NombreCompletoEntrenadorEntity {
 	private final void setSegundoApellido(String segundoApellido) {
 		this.segundoApellido = segundoApellido;
 	}
-	
+
 	public final String getPrimerNombre() {
 		return primerNombre;
 	}
@@ -70,7 +70,7 @@ public final class NombreCompletoEntrenadorEntity {
 	    }
 	}
 
-	
-	
+
+
 
 }

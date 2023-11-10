@@ -19,7 +19,7 @@ import co.edu.uco.gestorgimnasio.service.domain.rutina.RutinaDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.EjercicioEntityMapper;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.RutinaEntityMapper;
 
-public final class RegistrarRutinaUseCase implements UseCase<RutinaDomain> {
+public final class RegistrarRutinaUseCase implements UseCase<RutinaDomain,String> {
     private DAOFactory factoria;
 
     public RegistrarRutinaUseCase(final DAOFactory factoria) {
@@ -27,7 +27,7 @@ public final class RegistrarRutinaUseCase implements UseCase<RutinaDomain> {
     }
 
     @Override
-    public final void execute(RutinaDomain domain) {
+    public final void crear(RutinaDomain domain) {
         RegistrarRutinaValidator.ejecutar(domain);
         validarNoExistenciaRutinaConMismoNombre(domain.getNombre(), domain.getEntrenador());
         domain = obtenerIdentificadorRutina(domain);

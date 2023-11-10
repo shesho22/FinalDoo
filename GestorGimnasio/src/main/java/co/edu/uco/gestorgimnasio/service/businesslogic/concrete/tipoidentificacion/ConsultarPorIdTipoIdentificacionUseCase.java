@@ -11,7 +11,7 @@ import co.edu.uco.gestorgimnasio.service.businesslogic.UseCase;
 import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.TipoIdentificacionEntityMapper;
 
-public final class ConsultarPorIdTipoIdentificacionUseCase implements UseCase<TipoIdentificacionDomain> {
+public final class ConsultarPorIdTipoIdentificacionUseCase implements UseCase<TipoIdentificacionDomain,UUID> {
 
     private DAOFactory factoria;
 
@@ -20,13 +20,14 @@ public final class ConsultarPorIdTipoIdentificacionUseCase implements UseCase<Ti
     }
 
     @Override
-    public void execute(TipoIdentificacionDomain domain) {
-        if (domain == null || domain.getId() == null) {
-            var mensajeUsuario = "Se requiere un objeto TipoIdentificacionDomain con un ID válido";
+    public TipoIdentificacionDomain leer(UUID id) {
+    	
+        if (id == null) {
+            var mensajeUsuario = "Se requiere un ID valido";
             throw ServiceGestorGimnasioException.crear(mensajeUsuario);
         }
 
-        consultarTipoIdentificacionPorId(domain.getId());
+        return consultarTipoIdentificacionPorId(id);
     }
 
     private TipoIdentificacionDomain consultarTipoIdentificacionPorId(UUID id) {

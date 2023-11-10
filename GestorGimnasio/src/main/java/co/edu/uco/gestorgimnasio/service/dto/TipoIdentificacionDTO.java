@@ -6,31 +6,35 @@ import co.edu.uco.gestorgimnasio.crosscutting.util.UtilTexto;
 import co.edu.uco.gestorgimnasio.crosscutting.util.UtilUUID;
 
 public final class TipoIdentificacionDTO {
-	
+
 	private UUID id;
 	private String codigo;
 	private String nombre;
 	private boolean estado;
-	
-	
+
+
 	public TipoIdentificacionDTO() {
-		setId(UtilUUID.getDefaultUUID(id)); 
+		setId(UtilUUID.getDefaultUUID(id));
 		setCodigo(UtilTexto.VACIO);
 		setNombre(UtilTexto.VACIO);
 		setEstado(false);
 	}
-	
+
 	public TipoIdentificacionDTO(final UUID id,final String codigo,final String nombre,final boolean estado) {
 		setId(id);
 		setCodigo(codigo);
 		setNombre(nombre);
 		setEstado(estado);
 	}
-	
+
+	public static final TipoIdentificacionDTO crear(UUID uuid, String string, String string2, boolean b) {
+		return new TipoIdentificacionDTO(uuid,string,string2,b);
+	}
+
 	public static final TipoIdentificacionDTO crear() {
 		return new TipoIdentificacionDTO();
 	}
-	
+
 	public final UUID getId() {
 		return id;
 	}
@@ -65,5 +69,5 @@ public final class TipoIdentificacionDTO {
 		this.nombre = other.nombre;
 		this.estado = other.estado;
 	}
-	
+
 }

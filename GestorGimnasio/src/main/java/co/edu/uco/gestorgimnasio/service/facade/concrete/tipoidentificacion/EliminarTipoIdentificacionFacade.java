@@ -26,7 +26,7 @@ public final class EliminarTipoIdentificacionFacade implements Facade<TipoIdenti
             daoFactory.iniciarTransaccion();
 
             var useCase = new EliminarTipoIdentificacionUseCase(daoFactory);
-            useCase.execute(domain);
+            useCase.eliminar(domain.getId());
 
             daoFactory.confirmarTransaccion();
 

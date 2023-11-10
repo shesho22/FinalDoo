@@ -25,7 +25,7 @@ public final class ModificarTipoIdentificacionFacade implements Facade<TipoIdent
             daoFactory.iniciarTransaccion();
 
             var useCase = new ModificarTipoIdentificacionUseCase(daoFactory);
-            useCase.execute(domain);
+            useCase.actualizar(domain);
 
             daoFactory.confirmarTransaccion();
 

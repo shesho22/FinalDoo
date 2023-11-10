@@ -8,17 +8,17 @@ import co.edu.uco.gestorgimnasio.crosscutting.messages.CatalogoMensajes;
 import co.edu.uco.gestorgimnasio.crosscutting.messages.enumerator.CodigoMensaje;
 
 public final class UtilSQL {
-	
+
 	private UtilSQL() {
 		super();
 	}
-	
+
 	public static final boolean conexionAbierta(final Connection conexion) {
-		if(!UtilObjeto.esNulo(conexion)) {
+		if(UtilObjeto.esNulo(conexion)) {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000000004);
 			var mensajeTecnico = "No es posible validar si una conexxion esta abierta cuando es nula...";
 			throw CrossCuttingGestorGimnasioException.crear(mensajeUsuario, mensajeTecnico);
-		
+
 		}
 		try {
 			return !conexion.isClosed();
@@ -32,13 +32,13 @@ public final class UtilSQL {
 			throw CrossCuttingGestorGimnasioException.crear(exception, mensajeUsuario, mensajeTecnico);
 		}
 	}
-	
+
 	public static final void cerrarConexion(final Connection conexion) {
-		if(!UtilObjeto.esNulo(conexion)) {
+		if(UtilObjeto.esNulo(conexion)) {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000000004);
 			var mensajeTecnico = "No es posible cerrar una conexion que esta nula...";
 			throw CrossCuttingGestorGimnasioException.crear(mensajeUsuario, mensajeTecnico);
-		
+
 		}
 		try {
 			if(!conexionAbierta(conexion)) {
@@ -57,16 +57,16 @@ public final class UtilSQL {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000000004);
 			var mensajeTecnico = "Se ha presentado un problema inesperado tratando de cerrar la conexion...";
 			throw CrossCuttingGestorGimnasioException.crear(exception,mensajeUsuario, mensajeTecnico);
-		
+
 		}
 	}
-	
+
 	public static final void iniciarTransaccion(final Connection conexion) {
-		if(!UtilObjeto.esNulo(conexion)) {
+		if(UtilObjeto.esNulo(conexion)) {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000000004);
 			var mensajeTecnico = "No es posible iniciar una transaccion con una conexion que esta nula...";
 			throw CrossCuttingGestorGimnasioException.crear(mensajeUsuario, mensajeTecnico);
-		
+
 		}
 		try {
 			if(!conexionAbierta(conexion)) {
@@ -90,16 +90,16 @@ public final class UtilSQL {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000000004);
 			var mensajeTecnico = "Se ha presentado un problema inesperado tratando de iniciar la transaccion de una conexion...";
 			throw CrossCuttingGestorGimnasioException.crear(exception,mensajeUsuario, mensajeTecnico);
-		
+
 		}
 	}
-	
+
 	public static final void confirmarTransaccion(final Connection conexion) {
-		if(!UtilObjeto.esNulo(conexion)) {
+		if(UtilObjeto.esNulo(conexion)) {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000000004);
 			var mensajeTecnico = "No es posible confirmar una transaccion con una conexion que esta nula...";
 			throw CrossCuttingGestorGimnasioException.crear(mensajeUsuario, mensajeTecnico);
-		
+
 		}
 		try {
 			if(!conexionAbierta(conexion)) {
@@ -123,16 +123,16 @@ public final class UtilSQL {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000000004);
 			var mensajeTecnico = "Se ha presentado un problema inesperado tratando de confirmar la transaccion de una conexion...";
 			throw CrossCuttingGestorGimnasioException.crear(exception,mensajeUsuario, mensajeTecnico);
-		
+
 		}
 	}
-	
+
 	public static final void cancelarTransaccion(final Connection conexion) {
-		if(!UtilObjeto.esNulo(conexion)) {
+		if(UtilObjeto.esNulo(conexion)) {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000000004);
 			var mensajeTecnico = "No es posible cancelar una transaccion con una conexion que esta nula...";
 			throw CrossCuttingGestorGimnasioException.crear(mensajeUsuario, mensajeTecnico);
-		
+
 		}
 		try {
 			if(!conexionAbierta(conexion)) {
@@ -156,7 +156,7 @@ public final class UtilSQL {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000000004);
 			var mensajeTecnico = "Se ha presentado un problema inesperado tratando de cancelar la transaccion de una conexion...";
 			throw CrossCuttingGestorGimnasioException.crear(exception,mensajeUsuario, mensajeTecnico);
-		
+
 		}
 	}
 }

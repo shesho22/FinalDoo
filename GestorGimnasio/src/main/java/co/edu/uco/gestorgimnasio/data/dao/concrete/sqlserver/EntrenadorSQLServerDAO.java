@@ -32,11 +32,11 @@ public final class EntrenadorSQLServerDAO extends SQLDAO implements EntrenadorDA
 	@Override
 	public final void crear(final EntrenadorEntity entity) {
 		final var sentencia = new StringBuilder();
-		
+
 		sentencia.append("INSERT INTO entrenador (id, tipodoc_id, identificacion, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, correo_electronico, correo_validado, numero_telefono, telefono_validado, fecha_nacimiento)\r\n"
 				+ "");
 		sentencia.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-		
+
 		try (final var sentenciaPreparada =getConexion().prepareStatement(sentencia.toString())){
 			sentenciaPreparada.setObject(1,entity.getId());
 			sentenciaPreparada.setObject(2,entity.getTipoidentificacion());
@@ -51,7 +51,7 @@ public final class EntrenadorSQLServerDAO extends SQLDAO implements EntrenadorDA
 			sentenciaPreparada.setObject(11,entity.getNumeroTelefonoMovil().isNumeroTelefonoMovilConfirmado());
 			sentenciaPreparada.setObject(12,entity.getFechaNacimiento());
 			sentenciaPreparada.executeUpdate();
-			
+
 		} catch (final SQLException excepcion) {
 			var mensajeUsuario ="Se ha presentado un problema tratando de registrar la informacion del nuevo tipo de identificacion...";
 			var mensajeTecnico ="Se ha presentado un problema de tipo SQLException en el metodo crear de la clase TipoIdentificacionSQLServer tratando de llevar a cabo el registro del nuevo tipo de identificacion. por favor revise la trasa completa del problema presentado para asi poder identificar que sucedio...";
@@ -68,7 +68,7 @@ public final class EntrenadorSQLServerDAO extends SQLDAO implements EntrenadorDA
 	    final var sentencia = new StringBuilder();
 	    sentencia.append("UPDATE entrenador SET tipodoc_id = ?, identificacion = ?, primer_nombre = ?, segundo_nombre = ?, primer_apellido = ?, segundo_apellido = ?, correo_electronico = ?, correo_validado = ?, numero_telefono = ?, telefono_validado = ?, fecha_nacimiento = ? WHERE id = ?");
 
-	    
+
 	    try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())) {
 			sentenciaPreparada.setObject(1,entity.getTipoidentificacion());
 			sentenciaPreparada.setObject(2,entity.getIdentificacion());
@@ -82,7 +82,7 @@ public final class EntrenadorSQLServerDAO extends SQLDAO implements EntrenadorDA
 			sentenciaPreparada.setObject(10,entity.getNumeroTelefonoMovil().isNumeroTelefonoMovilConfirmado());
 			sentenciaPreparada.setObject(11,entity.getFechaNacimiento());
 	        sentenciaPreparada.setObject(12, entity.getId());
-	        
+
 	        sentenciaPreparada.executeUpdate();
 	    } catch (final SQLException excepcion) {
 	        var mensajeUsuario = "Se ha presentado un problema tratando de modificar la información del tipo de identificación...";
@@ -99,7 +99,7 @@ public final class EntrenadorSQLServerDAO extends SQLDAO implements EntrenadorDA
 	public final void eliminar(final UUID id) {
 	    final var sentencia = new StringBuilder();
 	    sentencia.append("DELETE FROM TipoIdentificacion WHERE id = ?");
-	    
+
 	    try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())) {
 	        sentenciaPreparada.setObject(1, id);
 	        sentenciaPreparada.executeUpdate();
@@ -116,18 +116,18 @@ public final class EntrenadorSQLServerDAO extends SQLDAO implements EntrenadorDA
 
 	@Override
 	public final Optional<EntrenadorEntity> consultarPorId(final UUID id) {
-		
+
 		final var sentencia = new StringBuilder();
 		sentencia.append("SELECT id, codigo, nombre, estado ");
 		sentencia.append("FROM TipoIdentificacion ");
 		sentencia.append("WHERE id = ? ");
-		
+
 		Optional<EntrenadorEntity> resultado = Optional.empty();
-		
+
 		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())){
-			
+
 			sentenciaPreparada.setObject(1, id);
-			resultado = ejecutarConsultaPorId(sentenciaPreparada);		
+			resultado = ejecutarConsultaPorId(sentenciaPreparada);
 		}catch (final DataGestorGimnasioException exception) {
 			throw exception;
 		}catch(final SQLException excepcion) {
@@ -151,14 +151,14 @@ public final class EntrenadorSQLServerDAO extends SQLDAO implements EntrenadorDA
 	            Date sqlDate = resultados.getDate("fecha_nacimiento");
 	            Instant instant = sqlDate.toInstant();
 	            LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-	            
+
 	            EntrenadorEntity entrenadorEntity = EntrenadorEntity.crear(
-	                UUID.fromString(resultados.getObject("id").toString()), 
-	                TipoIdentificacionEntity.fromString(resultados.getString("tipodoc_id")), 
-	                resultados.getString("identificacion"), 
-	                NombreCompletoEntrenadorEntity.fromString(resultados.getString("primer_nombre") + "," + resultados.getString("segundo_nombre") + "," + resultados.getString("primer_apellido") + "," + resultados.getString("segundo_apellido")), 
-	                CorreoElectronicoEntrenadorEntity.fromString(resultados.getString("correo_electronico") + "," + resultados.getBoolean("correo_validado")), 
-	                NumeroTelefonoMovilEntrenadorEntity.fromString(resultados.getString("numero_telefono") + "," + resultados.getBoolean("telefono_validado")), 
+	                UUID.fromString(resultados.getObject("id").toString()),
+	                TipoIdentificacionEntity.fromString(resultados.getString("tipodoc_id")),
+	                resultados.getString("identificacion"),
+	                NombreCompletoEntrenadorEntity.fromString(resultados.getString("primer_nombre") + "," + resultados.getString("segundo_nombre") + "," + resultados.getString("primer_apellido") + "," + resultados.getString("segundo_apellido")),
+	                CorreoElectronicoEntrenadorEntity.fromString(resultados.getString("correo_electronico") + "," + resultados.getBoolean("correo_validado")),
+	                NumeroTelefonoMovilEntrenadorEntity.fromString(resultados.getString("numero_telefono") + "," + resultados.getBoolean("telefono_validado")),
 	                localDate);
 	            resultado = Optional.of(entrenadorEntity);
 	        }
@@ -176,7 +176,7 @@ public final class EntrenadorSQLServerDAO extends SQLDAO implements EntrenadorDA
 
 
 
-	
+
 	private final String formarSentenciaConsulta(final EntrenadorEntity entity, final List<Object> parametros) {
 	    final StringBuilder sentencia = new StringBuilder();
 	    String operadorCondicional = "WHERE";
@@ -249,31 +249,31 @@ public final class EntrenadorSQLServerDAO extends SQLDAO implements EntrenadorDA
 	    return sentencia.toString();
 	}
 
-	
+
 	@Override
 	public final List<EntrenadorEntity> consultar (final EntrenadorEntity entity) {
-		final var parametros = new ArrayList<Object>();
-		
+		final var parametros = new ArrayList<>();
+
 		final String sentencia = formarSentenciaConsulta(entity, parametros);
-		
+
 		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia)){
 			colocarParametrosConsulta(sentenciaPreparada,parametros);
 			return ejecutarConaulta(sentenciaPreparada);
-			
+
 		}catch (final DataGestorGimnasioException excepcion) {
 			throw excepcion;
-		} 
+		}
 		catch (final SQLException excepcion) {
 			var mensajeUsuario ="Se ha presentado un problema tratando de llevar a cabo la consulta de los tipos de identificacion...";
 			var mensajeTecnico ="Se ha presentado un problema  en el metodo colocar parametros consulta en la clase TipoIdentificacionSQLServerDAO tratando de preparar la sentencia sql. por favor revise la trasa completa del problema presentado para asi poder identificar que sucedio...";
-			throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);	
+			throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 		}catch (final Exception excepcion) {
 			var mensajeUsuario ="Se ha presentado un problema tratando de llevar a cabo la consulta de los tipos de identificacion...";
 			var mensajeTecnico ="Se ha presentado un problema inesperado de tipo exception tratando de preparar la sentencia sql. por favor revise la trasa completa del problema presentado para asi poder identificar que sucedio...";
-			throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);	
+			throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 		}
 	}
-	
+
 	private final void colocarParametrosConsulta(final PreparedStatement sentenciaPreparada, final List<Object> parametros) {
 		try {
 			for (int  indice = 0; indice < parametros.size(); indice++) {
@@ -282,29 +282,29 @@ public final class EntrenadorSQLServerDAO extends SQLDAO implements EntrenadorDA
 			}catch (final SQLException excepcion) {
 				var mensajeUsuario ="Se ha presentado un problema tratando de llevar a cabo la consulta de los tipos de identificacion...";
 				var mensajeTecnico ="Se ha presentado un problema  en el metodo colocar parametros consulta en la clase TipoIdentificacionSQLServerDAO. por favor revise la trasa completa del problema presentado para asi poder identificar que sucedio...";
-				throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);	
+				throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 			}catch (final Exception excepcion) {
 				var mensajeUsuario ="Se ha presentado un problema tratando de llevar a cabo la consulta de los tipos de identificacion...";
 				var mensajeTecnico ="Se ha presentado un inesperado  en el metodo colocar parametros consulta en la clase TipoIdentificacionSQLServerDAO. por favor revise la trasa completa del problema presentado para asi poder identificar que sucedio...";
-				throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);	
+				throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 			}
 		}
-	
+
 	private final List<EntrenadorEntity>ejecutarConaulta(final PreparedStatement sentenciaPreparada){
 		final var listaResultados = new ArrayList<EntrenadorEntity>();
-		
+
 		try (final var resultados = sentenciaPreparada.executeQuery()){
 			while (resultados.next()) {
 	            Date sqlDate = resultados.getDate("fecha_nacimiento");
 	            Instant instant = sqlDate.toInstant();
 	            LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 	            EntrenadorEntity entrenadorEntity = EntrenadorEntity.crear(
-		                UUID.fromString(resultados.getObject("id").toString()), 
-		                TipoIdentificacionEntity.fromString(resultados.getString("tipodoc_id")), 
-		                resultados.getString("identificacion"), 
-		                NombreCompletoEntrenadorEntity.fromString(resultados.getString("primer_nombre") + "," + resultados.getString("segundo_nombre") + "," + resultados.getString("primer_apellido") + "," + resultados.getString("segundo_apellido")), 
-		                CorreoElectronicoEntrenadorEntity.fromString(resultados.getString("correo_electronico") + "," + resultados.getBoolean("correo_validado")), 
-		                NumeroTelefonoMovilEntrenadorEntity.fromString(resultados.getString("numero_telefono") + "," + resultados.getBoolean("telefono_validado")), 
+		                UUID.fromString(resultados.getObject("id").toString()),
+		                TipoIdentificacionEntity.fromString(resultados.getString("tipodoc_id")),
+		                resultados.getString("identificacion"),
+		                NombreCompletoEntrenadorEntity.fromString(resultados.getString("primer_nombre") + "," + resultados.getString("segundo_nombre") + "," + resultados.getString("primer_apellido") + "," + resultados.getString("segundo_apellido")),
+		                CorreoElectronicoEntrenadorEntity.fromString(resultados.getString("correo_electronico") + "," + resultados.getBoolean("correo_validado")),
+		                NumeroTelefonoMovilEntrenadorEntity.fromString(resultados.getString("numero_telefono") + "," + resultados.getBoolean("telefono_validado")),
 		                localDate);
 				listaResultados.add(entrenadorEntity);
 			}

@@ -3,8 +3,8 @@ package co.edu.uco.gestorgimnasio.data.entity.support;
 public class NumeroTelefonoMovilEntrenadorEntity {
 	private String numeroTelefonoMovil;
 	private boolean numeroTelefonoMovilConfirmado;
-	
-	
+
+
 	private NumeroTelefonoMovilEntrenadorEntity(final String numeroTelefonoMovil, final boolean numeroTelefonoMovilConfirmado) {
 		setNumeroTelefonoMovil(numeroTelefonoMovil);
 		setNumeroTelefonoMovilConfirmado(numeroTelefonoMovilConfirmado);
@@ -14,7 +14,7 @@ public class NumeroTelefonoMovilEntrenadorEntity {
 	public static final NumeroTelefonoMovilEntrenadorEntity crear(final String numeroTelefonoMovil, final boolean numeroTelefonoMovilConfirmado) {
 		return new NumeroTelefonoMovilEntrenadorEntity(numeroTelefonoMovil, numeroTelefonoMovilConfirmado);
 	}
-	
+
 	private final void setNumeroTelefonoMovil(final String numeroTelefonoMovil) {
 		this.numeroTelefonoMovil = numeroTelefonoMovil;
 	}
@@ -52,5 +52,5 @@ public class NumeroTelefonoMovilEntrenadorEntity {
 	    }
 	}
 
-	
+
 }

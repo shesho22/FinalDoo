@@ -2,23 +2,23 @@ package co.edu.uco.gestorgimnasio.service.dto.support;
 
 import co.edu.uco.gestorgimnasio.crosscutting.util.UtilTexto;
 
-public class CorreoElectronicoClienteDTO {
+public class CorreoElectronicoDTO {
 		private String correoElectronico;
 		private boolean correoElectronicoConfirmado;
-		
-		
-		public CorreoElectronicoClienteDTO() {
+
+
+		public CorreoElectronicoDTO() {
 			setCorreoElectronico(UtilTexto.VACIO);
 			setCorreoElectronicoConfirmado(false);
 		}
-		
-		public CorreoElectronicoClienteDTO(final String correoElectronico,final boolean correoElectronicoConfirmado) {
+
+		public CorreoElectronicoDTO(final String correoElectronico,final boolean correoElectronicoConfirmado) {
 			setCorreoElectronico(correoElectronico);
 			setCorreoElectronicoConfirmado(correoElectronicoConfirmado);
 		}
 
-		public static final CorreoElectronicoClienteDTO crear (final String correoElectronico,final boolean correoElectronicoConfirmado) {
-			return new CorreoElectronicoClienteDTO(correoElectronico, correoElectronicoConfirmado);
+		public static final CorreoElectronicoDTO crear (final String correoElectronico,final boolean correoElectronicoConfirmado) {
+			return new CorreoElectronicoDTO(correoElectronico, correoElectronicoConfirmado);
 		}
 
 
@@ -40,5 +40,5 @@ public class CorreoElectronicoClienteDTO {
 		public final boolean isCorreoElectronicoConfirmado() {
 			return correoElectronicoConfirmado;
 		}
-		
+
 }

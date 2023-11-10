@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rutina</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="app">
+    <h1>Rutina</h1>
+
+    <!-- Botones para navegar a otras páginas -->
+    <div id="navigation">
+      <button onclick="window.location.href='index.html'">Entrenador</button>
+      <button onclick="window.location.href='tipo_documento.html'">Tipo de Documento</button>
+      <button onclick="window.location.href='ejercicio.html'">Ejercicio</button>
+    </div>
+
+    <!-- Agrega esto donde quieras mostrar las respuestas en tu página -->
+    <div id="response-message"></div>
+
+    <div id="content">
+      <div id="crud-form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Nombre" required>
+
+        <!-- Seleccionar el entrenador -->
+        <label for="entrenador_id">Entrenador:</label>
+        <select id="entrenador_id">
+          <!-- Opciones de entrenador pueden cargarse desde la base de datos -->
+          <!-- Por ejemplo: <option value="1">Nombre del Entrenador</option> -->
+        </select>
+
+        <!-- Añadir ejercicios a la rutina -->
+        <label for="ejercicios">Ejercicios:</label>
+        <select id="ejercicios" multiple>
+          <!-- Opciones de ejercicios pueden cargarse desde la base de datos -->
+          <!-- Por ejemplo: <option value="1">Nombre del Ejercicio 1</option> -->
+        </select>
+
+        <button onclick="createRoutine()">Crear Rutina</button>
+      </div>
+
+      <div id="user-list">
+        <h2>Lista de Rutinas</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Entrenador</th>
+              <th>Ejercicios</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="routines"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

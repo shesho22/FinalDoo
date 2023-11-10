@@ -7,11 +7,11 @@ import co.edu.uco.gestorgimnasio.service.domain.ValidatorRule;
 public class NombreRutinaValidationRule implements ValidatorRule<String>{
 
 	private static final ValidatorRule<String> instancia = new NombreRutinaValidationRule();
-	
+
 	  private NombreRutinaValidationRule() {
 		  super();
 	  }
-	  
+
 	  public static final void ejecutarValidacion(final String dato) {
 		  instancia.validar(dato);
 	  }
@@ -29,7 +29,7 @@ public class NombreRutinaValidationRule implements ValidatorRule<String>{
 			throw ServiceGestorGimnasioException.crear(mensajeUsuario);
 		}
 	}
-	
+
 	private final void validarObligatoriedad(final String dato) {
 		if(UtilTexto.estaVacio(dato)) {
 			var mensajeUsuario="El nombre de la rutina es un dato que es obligatorio";

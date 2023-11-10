@@ -11,15 +11,15 @@ import co.edu.uco.gestorgimnasio.crosscutting.util.UtilObjeto;
 
 public final class CatalogoMensajes {
 	private static final Map<CodigoMensaje, Mensaje> MENSAJES = new HashMap<>();
-	
+
 	static {
 		cargarMensajes();
 	}
-	
+
 	private CatalogoMensajes() {
 		super();
 	}
-	
+
 	private static final void cargarMensajes() {
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000000001, TipoMensaje.TECNICO, CategoriaMensaje.FATAL,"No se recibio el codigo del mensaje que se queria crear. No es posible continuar con el proceso"));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000000002, TipoMensaje.TECNICO, CategoriaMensaje.FATAL,"No se existe un mensaje con el codigo indicado. No es posible continuar con el proceso"));
@@ -82,11 +82,11 @@ public final class CatalogoMensajes {
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000000059, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,""));
 
 	}
-	
+
 	private static final void agregarMensaje(final Mensaje mensaje) {
 		MENSAJES.put(mensaje.getCodigo(), mensaje);
 	}
-	
+
 	public static final Mensaje obtenerMensaje(final CodigoMensaje codigo) {
 		if(UtilObjeto.esNulo(codigo)) {
 			var mensajeUsuario= obtenerMensaje(CodigoMensaje.M0000000004).getContenido();
@@ -100,7 +100,7 @@ public final class CatalogoMensajes {
 		}
 		return MENSAJES.get(codigo);
 	}
-	
+
 	public static final String obtenerContenidoMensaje(final CodigoMensaje codigo) {
 		return obtenerMensaje(codigo).getContenido();
 	}

@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.uco.gestorgimnasio.controller.support.response.Respuesta;
 import co.edu.uco.gestorgimnasio.crosscutting.exception.GestorGimnasioException;
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ControllerGestorGimnasioException;
+import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.tipoidentificacion.ConsultarPorIdTipoIdentificacionUseCase;
 import co.edu.uco.gestorgimnasio.service.dto.TipoIdentificacionDTO;
+import co.edu.uco.gestorgimnasio.service.facade.concrete.tipoidentificacion.ConsultarPorIdTipoIdentificacionFacade;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.tipoidentificacion.ConsultarTipoIdentificacionFacade;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.tipoidentificacion.EliminarTipoIdentificacionFacade;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.tipoidentificacion.ModificarTipoIdentificacionFacade;
@@ -27,32 +29,30 @@ import co.edu.uco.gestorgimnasio.service.facade.concrete.tipoidentificacion.Regi
 @RestController
 @RequestMapping("/api/v1/tipoidentificacion")
 public final class TipoIdentificacionController {
-	
-	
+
+
 	@GetMapping("/saludo")
 	public String saludo() {
 		return "hola";
 	}
-	
+
 	@GetMapping("/dummy")
 	public final TipoIdentificacionDTO obtenerDummy() {
 		return TipoIdentificacionDTO.crear();
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<Respuesta<TipoIdentificacionDTO>> consultar(@RequestBody TipoIdentificacionDTO dto) {
+	public ResponseEntity<Respuesta<TipoIdentificacionDTO>> consultar() {
 	    Respuesta<TipoIdentificacionDTO> respuesta = new Respuesta<>();
 	    HttpStatus codigoHttp = HttpStatus.BAD_REQUEST;
 
 	    try {
-	        ConsultarTipoIdentificacionFacade facade = new ConsultarTipoIdentificacionFacade();
-	        facade.execute(dto);
+	    	ConsultarTipoIdentificacionFacade facade = new ConsultarTipoIdentificacionFacade();
+	        facade.execute();
 	        List<TipoIdentificacionDTO> resultados = new ArrayList<>();
-	        resultados.add(dto);
-
-	        codigoHttp = HttpStatus.OK;
 	        respuesta.getMensajes().add("La consulta de tipo de identificación se realizó exitosamente.");
 	        respuesta.setDatos(resultados);
+
 	    } catch (final GestorGimnasioException exception) {
 	        respuesta.getMensajes().add(exception.getMensajeUsuario());
 	        System.err.println(exception.getMensajeTecnico());
@@ -76,8 +76,7 @@ public final class TipoIdentificacionController {
 	    try {
 	        TipoIdentificacionDTO tipoIdentificacion = new TipoIdentificacionDTO();
 	        tipoIdentificacion.setId(id);
-
-	        ConsultarTipoIdentificacionFacade facade = new ConsultarTipoIdentificacionFacade();
+	        ConsultarPorIdTipoIdentificacionFacade facade = new ConsultarPorIdTipoIdentificacionFacade(null);
 	        facade.execute(tipoIdentificacion);
 	        if (tipoIdentificacion.getId() != null) {
 	            codigoHttp = HttpStatus.OK;
@@ -99,7 +98,7 @@ public final class TipoIdentificacionController {
 
 	    return new ResponseEntity<>(respuesta, codigoHttp);
 	}
-	
+
 	@PostMapping
 	public final TipoIdentificacionDTO registrar(@RequestBody TipoIdentificacionDTO dto) {
 	    Respuesta<TipoIdentificacionDTO> respuesta = new Respuesta<>();
@@ -122,14 +121,14 @@ public final class TipoIdentificacionController {
 	    return dto;
 	}
 
-	
+
 	@PutMapping
 	public final TipoIdentificacionDTO modificar(@PathVariable("id") UUID id, @RequestBody TipoIdentificacionDTO dto) {
 	    Respuesta<TipoIdentificacionDTO> respuesta = new Respuesta<>();
 	    HttpStatus codigoHttp = HttpStatus.BAD_REQUEST;
 	    try {
 	        ModificarTipoIdentificacionFacade facade = new ModificarTipoIdentificacionFacade();
-	        dto.setId(id); 
+	        dto.setId(id);
 	        facade.execute(dto);
 	        codigoHttp = HttpStatus.OK;
 	        respuesta.getMensajes().add("El tipo de identificación fue modificado exitosamente...");
@@ -146,7 +145,7 @@ public final class TipoIdentificacionController {
 	    return dto;
 	}
 
-	
+
 	@DeleteMapping ("/{id}")
 	public ResponseEntity<String> eliminar(@PathVariable("id") UUID id) {
 	    Respuesta<String> respuesta = new Respuesta<>();
@@ -173,5 +172,5 @@ public final class TipoIdentificacionController {
 	    }
 	    return new ResponseEntity<>(respuesta.toString(), codigoHttp);
 	}
-	
+
 }

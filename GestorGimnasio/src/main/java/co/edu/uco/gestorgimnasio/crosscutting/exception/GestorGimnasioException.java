@@ -12,11 +12,11 @@ public class GestorGimnasioException extends RuntimeException{
 	private String mensajeUsuario;
 	private String mensajeTecnico;
 	private boolean tieneExepcionRaiz;
-	
-	
-	
-	
-	
+
+
+
+
+
 	protected GestorGimnasioException(final LugarException lugar,final Throwable excepcionRaiz,final String mensajeUsuario,
 			final String mensajeTecnico) {
 		setLugar(lugar);
@@ -24,7 +24,7 @@ public class GestorGimnasioException extends RuntimeException{
 		setMensajeUsuario(mensajeUsuario);
 		setMensajeTecnico(mensajeTecnico);
 	}
-	
+
 	private final void setLugar(final LugarException lugar) {
 		this.lugar =UtilObjeto.obtenerValorDefecto(lugar, LugarException.GENERAL);
 	}
@@ -60,7 +60,7 @@ public class GestorGimnasioException extends RuntimeException{
 	public final boolean isTieneExepcionRaiz() {
 		return tieneExepcionRaiz;
 	}
-	
 
-	
+
+
 }

@@ -8,12 +8,12 @@ import co.edu.uco.gestorgimnasio.crosscutting.util.UtilObjeto;
 import co.edu.uco.gestorgimnasio.crosscutting.util.UtilTexto;
 
 public final class Mensaje {
-	
+
 	private CodigoMensaje codigo;
 	private TipoMensaje tipo;
 	private CategoriaMensaje categoria;
 	private String contenido;
-	
+
 	private Mensaje(final CodigoMensaje codigo,final TipoMensaje tipo,final CategoriaMensaje categoria,final String contenido) {
 		setCodigo(codigo);
 		setTipo(tipo);
@@ -24,7 +24,7 @@ public final class Mensaje {
 	public static final Mensaje crear(final CodigoMensaje codigo,final TipoMensaje tipo,final CategoriaMensaje categoria,final String contenido) {
 		return new Mensaje(codigo, tipo, categoria, contenido);
 	}
-	
+
 	private final void setCodigo(final CodigoMensaje codigo) {
 		if(UtilObjeto.esNulo(codigo)) {
 			var mensajeUsuario= CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000000004);
@@ -55,5 +55,5 @@ public final class Mensaje {
 	public final String getContenido() {
 		return contenido;
 	}
-	
+
 }

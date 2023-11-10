@@ -8,7 +8,7 @@ import co.edu.uco.gestorgimnasio.data.entity.EjercicioEntity;
 import co.edu.uco.gestorgimnasio.data.entity.RutinaEntity;
 
 public interface RutinaDAO {
-	
+
     void crear(RutinaEntity entity, List<EjercicioEntity> ejercicios);
 
     void modificar(RutinaEntity entity, List<EjercicioEntity> ejercicios);

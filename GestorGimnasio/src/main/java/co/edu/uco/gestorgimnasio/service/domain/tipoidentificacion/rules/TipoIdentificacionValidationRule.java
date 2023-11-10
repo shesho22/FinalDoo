@@ -8,16 +8,16 @@ import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentific
 public final class TipoIdentificacionValidationRule implements ValidatorRule<TipoIdentificacionDomain>{
 
 	private static final ValidatorRule<TipoIdentificacionDomain> instancia = new TipoIdentificacionValidationRule();
-	
+
 	  private TipoIdentificacionValidationRule() {
 		  super();
 	  }
-	  
+
 	  public static final void ejecutarValidacion(final TipoIdentificacionDomain dato) {
 		  instancia.validar(dato);
 	  }
-	
-	
+
+
 	@Override
 	public final void validar(final TipoIdentificacionDomain dato) {
 		if(UtilObjeto.esNulo(dato)) {

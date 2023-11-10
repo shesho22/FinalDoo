@@ -1,18 +1,17 @@
 package co.edu.uco.gestorgimnasio.service.domain.rutina;
 
+import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.gestorgimnasio.service.domain.ejercicio.EjercicioDomain;
 import co.edu.uco.gestorgimnasio.service.domain.entrenador.EntrenadorDomain;
-
-import java.util.List;
 
 
 
 public class RutinaDomain {
     private UUID id;
     private String nombre;
-    private EntrenadorDomain entrenador; 
+    private EntrenadorDomain entrenador;
     private List<EjercicioDomain> ejercicios;
 
     public RutinaDomain(UUID id, String nombre, EntrenadorDomain entrenador, List<EjercicioDomain> ejercicios) { // Modificamos el constructor

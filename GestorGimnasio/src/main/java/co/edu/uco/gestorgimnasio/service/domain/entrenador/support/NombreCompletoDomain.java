@@ -1,45 +1,45 @@
 package co.edu.uco.gestorgimnasio.service.domain.entrenador.support;
 
 
-public class NombreCompletoClienteDomain {
+public class NombreCompletoDomain {
 	private String primerNombre;
 	private String segundoNombre;
 	private String primerApellido;
 	private String segundoApellido;
-	
 
-	public NombreCompletoClienteDomain(final String primerNombre, final String segundoNombre, final String primerApellido,
+
+	public NombreCompletoDomain(final String primerNombre, final String segundoNombre, final String primerApellido,
 			final String segundoApellido) {
 		setPrimerNombre(primerNombre);
 		setSegundoNombre(segundoNombre);
 		setPrimerApellido(primerApellido);
 		setSegundoApellido(segundoApellido);
 	}
-	
-	public static final NombreCompletoClienteDomain crear(final String primerNombre, final String segundoNombre, final String primerApellido,
+
+	public static final NombreCompletoDomain crear(final String primerNombre, final String segundoNombre, final String primerApellido,
 			final String segundoApellido) {
-		return new NombreCompletoClienteDomain(primerNombre, segundoNombre, primerApellido, segundoApellido);
+		return new NombreCompletoDomain(primerNombre, segundoNombre, primerApellido, segundoApellido);
 	}
-	
-	
-	
-	private final NombreCompletoClienteDomain setPrimerNombre(String primerNombre) {
+
+
+
+	private final NombreCompletoDomain setPrimerNombre(String primerNombre) {
 		this.primerNombre = primerNombre;
 		return this;
 	}
-	private final NombreCompletoClienteDomain setSegundoNombre(String segundoNombre) {
+	private final NombreCompletoDomain setSegundoNombre(String segundoNombre) {
 		this.segundoNombre = segundoNombre;
 		return this;
 	}
-	private final NombreCompletoClienteDomain setPrimerApellido(String primerApellido) {
+	private final NombreCompletoDomain setPrimerApellido(String primerApellido) {
 		this.primerApellido = primerApellido;
 		return this;
 	}
-	private final NombreCompletoClienteDomain setSegundoApellido(String segundoApellido) {
+	private final NombreCompletoDomain setSegundoApellido(String segundoApellido) {
 		this.segundoApellido = segundoApellido;
 		return this;
 	}
-	
+
 	public final String getPrimerNombre() {
 		return primerNombre;
 	}
@@ -52,7 +52,7 @@ public class NombreCompletoClienteDomain {
 	public final String getSegundoApellido() {
 		return segundoApellido;
 	}
-	
-	
+
+
 
 }

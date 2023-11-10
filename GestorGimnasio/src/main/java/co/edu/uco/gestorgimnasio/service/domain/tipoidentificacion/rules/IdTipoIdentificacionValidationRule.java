@@ -8,17 +8,17 @@ import co.edu.uco.gestorgimnasio.crosscutting.util.UtilUUID;
 import co.edu.uco.gestorgimnasio.service.domain.ValidatorRule;
 
 public final class IdTipoIdentificacionValidationRule implements ValidatorRule<UUID>{
-	
+
 	private static final ValidatorRule<UUID> instancia = new IdTipoIdentificacionValidationRule();
-	
-	private IdTipoIdentificacionValidationRule() {	
+
+	private IdTipoIdentificacionValidationRule() {
 		super();
 	}
-	
+
 	public static final void ejecutarValidacion(final UUID dato) {
 		instancia.validar(dato);
 	}
-	
+
 	@Override
 	public final void validar(final UUID dato) {
 		validarObligatoriedad(dato);

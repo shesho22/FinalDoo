@@ -20,7 +20,7 @@ public class EjercicioDTO {
         setSeries(UtilTexto.VACIO);
         setRepeticiones(UtilTexto.VACIO);
     }
-    
+
     public EjercicioDTO(UUID id, String nombre, String descripcion, String series, String repeticiones) {
         setId(id);
         setNombre(nombre);
@@ -29,11 +29,15 @@ public class EjercicioDTO {
         setRepeticiones(repeticiones);
     }
 
+
+	public static final EjercicioDTO crear(UUID uuid, String string, String string2, String string3, String string4) {
+		return new EjercicioDTO(uuid,string,string2,string3,string4);
+	}
 	
 	public static final EjercicioDTO crear() {
 		return new EjercicioDTO();
 	}
-    
+
     public UUID getId() {
         return id;
     }

@@ -18,17 +18,17 @@ public final class RegistrarTipoIdentificacionFacade implements Facade<TipoIdent
 	public final void execute(TipoIdentificacionDTO dto) {
 		final TipoIdentificacionDomain domain = TipoIdentificacionDTOMapper.convertirToDomain(dto);
 		RegistrarTipoIdentificacionValidator.ejecutar(domain);
-		
+
 		final DAOFactory daoFactory =DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
-		
+
 		try {
 			daoFactory.iniciarTransaccion();
-			
+
 			var useCase = new RegistrarTipoIdentificacionUseCase(daoFactory);
-			useCase.execute(domain);
-			
+			useCase.crear(domain);
+
 			daoFactory.confirmarTransaccion();
-			
+
 		}catch (final GestorGimnasioException excepcion) {
 			daoFactory.cancelarTransaccion();
 			throw excepcion;
@@ -43,5 +43,5 @@ public final class RegistrarTipoIdentificacionFacade implements Facade<TipoIdent
 		}
 	}
 
-	
+
 }

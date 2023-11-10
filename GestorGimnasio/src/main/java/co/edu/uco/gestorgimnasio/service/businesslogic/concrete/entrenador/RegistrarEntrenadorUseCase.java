@@ -11,7 +11,7 @@ import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentific
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.EntrenadorEntityMapper;
 
 
-public final class RegistrarEntrenadorUseCase implements UseCase<EntrenadorDomain> {
+public final class RegistrarEntrenadorUseCase implements UseCase<EntrenadorDomain,String> {
 
     private DAOFactory factoria;
 
@@ -20,7 +20,7 @@ public final class RegistrarEntrenadorUseCase implements UseCase<EntrenadorDomai
     }
 
     @Override
-    public final void execute(EntrenadorDomain domain) {
+    public final void crear(EntrenadorDomain domain) {
     	validarExistenciaEntrenadorConMismoDocumento(domain.getIdentificacion(),domain.getTipoidentificacion());
         domain = registrarEntrenador(domain);
     }

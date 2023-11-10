@@ -9,7 +9,7 @@ import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.service.businesslogic.UseCase;
 import co.edu.uco.gestorgimnasio.service.domain.ejercicio.EjercicioDomain;
 
-public final class EliminarEjercicioUseCase implements UseCase<EjercicioDomain> {
+public final class EliminarEjercicioUseCase implements UseCase<UUID,String> {
 
     private DAOFactory factoria;
 
@@ -18,20 +18,20 @@ public final class EliminarEjercicioUseCase implements UseCase<EjercicioDomain> 
     }
 
     @Override
-    public final void execute(EjercicioDomain domain) {
-        validarExistenciaEjercicio(domain.getId());
-        eliminarEjercicio(domain);
+    public final void eliminar(UUID id) {
+    	validarExistencia(id);
+    	eliminarPorId(id);
+    }
+    
+    
+    private void eliminarPorId(final UUID id) {
+        getEjercicioDAO().eliminar(id);
     }
 
-    private void eliminarEjercicio(final EjercicioDomain domain) {
-        EjercicioDAO ejercicioDAO = getEjercicioDAO();
-        ejercicioDAO.eliminar(domain.getId());
-    }
-
-    private final void validarExistenciaEjercicio(final UUID id) {
+    private final void validarExistencia(final UUID id) {
         var resultado = getEjercicioDAO().consultarPorId(id);
         if (resultado.isEmpty()) {
-            var mensajeUsuario = "No existe un ejercicio con el ID " + id;
+            var mensajeUsuario = "No existe un tipo de identificación con el ID " + id;
             throw ServiceGestorGimnasioException.crear(mensajeUsuario);
         }
     }

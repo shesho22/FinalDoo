@@ -10,7 +10,7 @@ import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.rutina
 import co.edu.uco.gestorgimnasio.service.domain.rutina.RutinaDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.RutinaEntityMapper;
 
-public final class ModificarRutinaUseCase implements UseCase<RutinaDomain> {
+public final class ModificarRutinaUseCase implements UseCase<RutinaDomain,String> {
 
     private DAOFactory factoria;
 
@@ -19,7 +19,7 @@ public final class ModificarRutinaUseCase implements UseCase<RutinaDomain> {
     }
 
     @Override
-    public final void execute(RutinaDomain domain) {
+    public final void actualizar(RutinaDomain domain) {
         ModificarRutinaValidator.ejecutar(domain);
         validarExistenciaRutinaConMismoNombre(domain.getNombre());
         domain = actualizarIdentificadorRutina(domain);

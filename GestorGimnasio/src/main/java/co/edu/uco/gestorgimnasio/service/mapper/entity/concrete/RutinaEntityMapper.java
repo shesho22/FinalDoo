@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGimnasioException;
-import co.edu.uco.gestorgimnasio.data.entity.EjercicioEntity;
-import co.edu.uco.gestorgimnasio.data.entity.RutinaEntity;
 import co.edu.uco.gestorgimnasio.crosscutting.messages.CatalogoMensajes;
 import co.edu.uco.gestorgimnasio.crosscutting.messages.enumerator.CodigoMensaje;
 import co.edu.uco.gestorgimnasio.crosscutting.util.UtilObjeto;
-import co.edu.uco.gestorgimnasio.service.mapper.entity.EntityMapper;
+import co.edu.uco.gestorgimnasio.data.entity.EjercicioEntity;
+import co.edu.uco.gestorgimnasio.data.entity.RutinaEntity;
 import co.edu.uco.gestorgimnasio.service.domain.ejercicio.EjercicioDomain;
 import co.edu.uco.gestorgimnasio.service.domain.rutina.RutinaDomain;
+import co.edu.uco.gestorgimnasio.service.mapper.entity.EntityMapper;
 
 public final class RutinaEntityMapper implements EntityMapper<RutinaEntity, RutinaDomain>{
 
 	private static final EntityMapper<RutinaEntity, RutinaDomain> instancia = new RutinaEntityMapper();
-	
+
 	private RutinaEntityMapper() {
 		super();
 	}
-	
+
 	@Override
 	public final RutinaDomain toDomain(final RutinaEntity entity) {
 		if(UtilObjeto.esNulo(entity)) {
@@ -30,8 +30,8 @@ public final class RutinaEntityMapper implements EntityMapper<RutinaEntity, Ruti
 		}
 		return RutinaDomain.crear(entity.getId(),entity.getNombre(),EntrenadorEntityMapper.convertToDomain(entity.getEntrenador()), RutinaEntityMapper.convertToDomainList(entity.getEjercicios()));
 	}
-	
-	
+
+
 
 	@Override
 	public final RutinaEntity toEntity(final RutinaDomain domain) {
@@ -41,17 +41,17 @@ public final class RutinaEntityMapper implements EntityMapper<RutinaEntity, Ruti
 			throw ServiceGestorGimnasioException.crear(mensajeUsuario,mensajeTecnico);
 		}
 		return RutinaEntity.crear(domain.getId(),domain.getNombre(),EntrenadorEntityMapper.convertToEntity(domain.getEntrenador()),RutinaEntityMapper.convertToEntityList(domain.getEjercicios()));
-	
+
 	}
-	
+
 	public static final RutinaDomain convertToDomain(final RutinaEntity entity) {
 		return instancia.toDomain(entity);
 	}
-	
+
 	public static final RutinaEntity convertToEntity(final RutinaDomain domain) {
 		return instancia.toEntity(domain);
 	}
-	
+
 	public static List<EjercicioDomain> convertToDomainList(List<EjercicioEntity> ejercicioEntities) {
         List<EjercicioDomain> ejercicioDomains = new ArrayList<>();
 
@@ -69,7 +69,7 @@ public final class RutinaEntityMapper implements EntityMapper<RutinaEntity, Ruti
 
         return ejercicioDomains;
     }
-	
+
 	public static List<EjercicioEntity> convertToEntityList(List<EjercicioDomain> ejercicioDomains) {
         List<EjercicioEntity> ejercicioEntities = new ArrayList<>();
 

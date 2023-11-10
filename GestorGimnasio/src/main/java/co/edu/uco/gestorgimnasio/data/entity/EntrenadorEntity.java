@@ -9,15 +9,15 @@ import co.edu.uco.gestorgimnasio.data.entity.support.NumeroTelefonoMovilEntrenad
 
 
 public final  class EntrenadorEntity {
-	private UUID id; 
+	private UUID id;
 	private TipoIdentificacionEntity tipoidentificacion;
 	private String identificacion;
 	private NombreCompletoEntrenadorEntity nombreCompleto;
 	private CorreoElectronicoEntrenadorEntity correoElectornico;
 	private NumeroTelefonoMovilEntrenadorEntity numeroTelefonoMovil;
 	private LocalDate fechaNacimiento;
-	
-	
+
+
 	private EntrenadorEntity(final UUID id, final TipoIdentificacionEntity tipoidentificacion, final String identificacion, final NombreCompletoEntrenadorEntity nombreCompleto, final CorreoElectronicoEntrenadorEntity correoElectornico,
 			final NumeroTelefonoMovilEntrenadorEntity numeroTelefonoMovil,final LocalDate fechaNacimiento) {
 		setId(id);
@@ -28,12 +28,12 @@ public final  class EntrenadorEntity {
 		setNumeroTelefonoMovil(numeroTelefonoMovil);
 		setFechaNacimiento(fechaNacimiento);
 	}
-	
+
 	public static final EntrenadorEntity crear(final UUID id, final TipoIdentificacionEntity tipoidentificacion, final String identificacion, final NombreCompletoEntrenadorEntity nombreCompleto, final CorreoElectronicoEntrenadorEntity correoElectornico,
 			final NumeroTelefonoMovilEntrenadorEntity numeroTelefonoMovil,final LocalDate fechaNacimiento) {
 		return new EntrenadorEntity(id, tipoidentificacion, identificacion, nombreCompleto, correoElectornico, numeroTelefonoMovil,fechaNacimiento);
 	}
-	
+
 
 	private final void setId(final UUID id) {
 		this.id = id;
@@ -47,7 +47,7 @@ public final  class EntrenadorEntity {
 	private final void setNombreCompleto(final NombreCompletoEntrenadorEntity nombreCompleto) {
 		this.nombreCompleto = nombreCompleto;
 	}
-	
+
 	private final void setCorreoElectornico(final CorreoElectronicoEntrenadorEntity correoElectornico) {
 		this.correoElectornico = correoElectornico;
 	}

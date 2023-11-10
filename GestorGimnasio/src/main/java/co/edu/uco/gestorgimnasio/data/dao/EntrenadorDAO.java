@@ -7,7 +7,7 @@ import java.util.UUID;
 import co.edu.uco.gestorgimnasio.data.entity.EntrenadorEntity;
 
 public interface EntrenadorDAO {
-	
+
 	void crear(EntrenadorEntity entity);
 	void modificar(EntrenadorEntity entity);
 	void eliminar(UUID id);

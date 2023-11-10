@@ -24,18 +24,18 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 	@Override
 	public final void crear(final TipoIdentificacionEntity entity) {
 		final var sentencia = new StringBuilder();
-		
-		sentencia.append("INSERT INTO TipoIdentificacion (id,codigo,nombre,estado)");
+
+		sentencia.append("INSERT INTO tipo_documento (id,codigo,nombre,estado)");
 		sentencia.append("VALUES (?, ?, ?, ?)");
-		
+
 		try (final var sentenciaPreparada =getConexion().prepareStatement(sentencia.toString())){
 			sentenciaPreparada.setObject(1,entity.getId());
 			sentenciaPreparada.setObject(2,entity.getCodigo());
 			sentenciaPreparada.setObject(3,entity.getNombre());
 			sentenciaPreparada.setObject(4,entity.isEstado());
-			
+
 			sentenciaPreparada.executeUpdate();
-			
+
 		} catch (final SQLException excepcion) {
 			var mensajeUsuario ="Se ha presentado un problema tratando de registrar la informacion del nuevo tipo de identificacion...";
 			var mensajeTecnico ="Se ha presentado un problema de tipo SQLException en el metodo crear de la clase TipoIdentificacionSQLServer tratando de llevar a cabo el registro del nuevo tipo de identificacion. por favor revise la trasa completa del problema presentado para asi poder identificar que sucedio...";
@@ -50,14 +50,14 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 	@Override
 	public final void modificar(final TipoIdentificacionEntity entity) {
 	    final var sentencia = new StringBuilder();
-	    sentencia.append("UPDATE TipoIdentificacion SET codigo = ?, nombre = ?, estado = ? WHERE id = ?");
-	    
+	    sentencia.append("UPDATE tipo_documento SET codigo = ?, nombre = ?, estado = ? WHERE id = ?");
+
 	    try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())) {
 	        sentenciaPreparada.setObject(1, entity.getCodigo());
 	        sentenciaPreparada.setObject(2, entity.getNombre());
 	        sentenciaPreparada.setObject(3, entity.isEstado());
 	        sentenciaPreparada.setObject(4, entity.getId());
-	        
+
 	        sentenciaPreparada.executeUpdate();
 	    } catch (final SQLException excepcion) {
 	        var mensajeUsuario = "Se ha presentado un problema tratando de modificar la información del tipo de identificación...";
@@ -73,8 +73,8 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 	@Override
 	public final void eliminar(final TipoIdentificacionEntity entity) {
 	    final var sentencia = new StringBuilder();
-	    sentencia.append("DELETE FROM TipoIdentificacion WHERE id = ?");
-	    
+	    sentencia.append("DELETE FROM tipo_documento WHERE id = ?");
+
 	    try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())) {
 	        sentenciaPreparada.setObject(1, entity.getId());
 	        sentenciaPreparada.executeUpdate();
@@ -92,18 +92,18 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 
 	@Override
 	public final Optional<TipoIdentificacionEntity> consultarPorId(final UUID id) {
-		
+
 		final var sentencia = new StringBuilder();
 		sentencia.append("SELECT id, codigo, nombre, estado ");
-		sentencia.append("FROM TipoIdentificacion ");
+		sentencia.append("FROM tipo_documento  ");
 		sentencia.append("WHERE id = ? ");
-		
+
 		Optional<TipoIdentificacionEntity> resultado = Optional.empty();
-		
+
 		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())){
-			
+
 			sentenciaPreparada.setObject(1, id);
-			resultado = ejecutarConsultaPorId(sentenciaPreparada);		
+			resultado = ejecutarConsultaPorId(sentenciaPreparada);
 		}catch (final DataGestorGimnasioException exception) {
 			throw exception;
 		}catch(final SQLException excepcion) {
@@ -119,10 +119,10 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 	}
 
 
-	
+
 	private Optional<TipoIdentificacionEntity>  ejecutarConsultaPorId(final PreparedStatement sentenciaPreparada) {
 		Optional<TipoIdentificacionEntity> resultado = Optional.empty();
-		
+
 		try (final var resultados = sentenciaPreparada.executeQuery()){
 			if (resultados.next()) {
 				var tipoIdentificacionEntity = TipoIdentificacionEntity.crear(UUID.fromString(resultados.getObject("id").toString()), resultados.getString("codigo"), resultados.getString("nombre"), resultados.getBoolean("estado"));
@@ -139,21 +139,21 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 			throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 		}
 		return resultado;
-	} 
-	
+	}
+
 	private final String formarSentenciaConsulta(final TipoIdentificacionEntity entity, final List<Object> parametros) {
-		
+
 		final StringBuilder sentencia = new StringBuilder();
 		String operadorCondicional = "WHERE";
-		
+
 		sentencia.append("SELECT id, codigo, nombre, estado ");
-		sentencia.append("FROM TipoIdentificacion ");
+		sentencia.append("FROM tipo_documento ");
 		if(!UtilObjeto.esNulo(entity)) {
 			if(!UtilObjeto.esNulo(entity.getId())) {
 				sentencia.append(operadorCondicional).append(" id = ? ");
 				operadorCondicional = "AND";
 				parametros.add(entity.getId());
-			}	
+			}
 			if(!UtilTexto.estaVacio(entity.getCodigo())) {
 				sentencia.append(operadorCondicional).append(" codigo = ? ");
 				operadorCondicional = "AND";
@@ -164,7 +164,7 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 				operadorCondicional = "AND";
 				parametros.add(entity.getNombre());
 			}
-			
+
 			//validar  ¿que pasa aqui?
 			if(!UtilObjeto.esNulo(entity.isEstado())) {
 				sentencia.append(operadorCondicional).append(" estado = ? ");
@@ -174,31 +174,31 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 		sentencia.append("ORDER BY codigo ASC ");
 		return sentencia.toString();
 	}
-	
+
 	@Override
 	public final List<TipoIdentificacionEntity> consultar (final TipoIdentificacionEntity entity) {
-		final var parametros = new ArrayList<Object>();
-		
+		final var parametros = new ArrayList<>();
+
 		final String sentencia = formarSentenciaConsulta(entity, parametros);
-		
+
 		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia)){
 			colocarParametrosConsulta(sentenciaPreparada,parametros);
 			return ejecutarConsulta(sentenciaPreparada);
-			
+
 		}catch (final DataGestorGimnasioException excepcion) {
 			throw excepcion;
-		} 
+		}
 		catch (final SQLException excepcion) {
 			var mensajeUsuario ="Se ha presentado un problema tratando de llevar a cabo la consulta de los tipos de identificacion...";
 			var mensajeTecnico ="Se ha presentado un problema  en el metodo colocar parametros consulta en la clase TipoIdentificacionSQLServerDAO tratando de preparar la sentencia sql. por favor revise la trasa completa del problema presentado para asi poder identificar que sucedio...";
-			throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);	
+			throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 		}catch (final Exception excepcion) {
 			var mensajeUsuario ="Se ha presentado un problema tratando de llevar a cabo la consulta de los tipos de identificacion...";
 			var mensajeTecnico ="Se ha presentado un problema inesperado de tipo exception tratando de preparar la sentencia sql. por favor revise la trasa completa del problema presentado para asi poder identificar que sucedio...";
-			throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);	
+			throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 		}
 	}
-	
+
 	private final void colocarParametrosConsulta(final PreparedStatement sentenciaPreparada, final List<Object> parametros) {
 		try {
 			for (int  indice = 0; indice < parametros.size(); indice++) {
@@ -207,17 +207,17 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 			}catch (final SQLException excepcion) {
 				var mensajeUsuario ="Se ha presentado un problema tratando de llevar a cabo la consulta de los tipos de identificacion...";
 				var mensajeTecnico ="Se ha presentado un problema  en el metodo colocar parametros consulta en la clase TipoIdentificacionSQLServerDAO. por favor revise la trasa completa del problema presentado para asi poder identificar que sucedio...";
-				throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);	
+				throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 			}catch (final Exception excepcion) {
 				var mensajeUsuario ="Se ha presentado un problema tratando de llevar a cabo la consulta de los tipos de identificacion...";
 				var mensajeTecnico ="Se ha presentado un inesperado  en el metodo colocar parametros consulta en la clase TipoIdentificacionSQLServerDAO. por favor revise la trasa completa del problema presentado para asi poder identificar que sucedio...";
-				throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);	
+				throw DataGestorGimnasioException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 			}
 		}
-	
+
 	private final List<TipoIdentificacionEntity>ejecutarConsulta(final PreparedStatement sentenciaPreparada){
 		final var listaResultados = new ArrayList<TipoIdentificacionEntity>();
-		
+
 		try (final var resultados = sentenciaPreparada.executeQuery()){
 			while (resultados.next()) {
 				var tipoIdentificacionEntity = TipoIdentificacionEntity.crear(UUID.fromString(resultados.getObject("id").toString()), resultados.getString("codigo"), resultados.getString("nombre"), resultados.getBoolean("estado"));
@@ -235,7 +235,29 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 		}
 		return listaResultados;
 	}
-	
+
+	@Override
+	public final List<TipoIdentificacionEntity> consultar() {
+	    final String sentencia = formarSentenciaConsultaSinParametros();
+
+	    try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia)) {
+	        return ejecutarConsulta(sentenciaPreparada);
+	    } catch (final DataGestorGimnasioException excepcion) {
+	        throw excepcion;
+	    } catch (final SQLException excepcion) {
+	        var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta de los tipos de identificación...";
+	        var mensajeTecnico = "Se ha presentado un problema en el método ejecutarConsulta en la clase TipoIdentificacionSQLServerDAO tratando de ejecutar la consulta SQL. Por favor, revise la traza completa del problema presentado para identificar lo que sucedió.";
+	        throw DataGestorGimnasioException.crear(excepcion, mensajeUsuario, mensajeTecnico);
+	    } catch (final Exception excepcion) {
+	        var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta de los tipos de identificación...";
+	        var mensajeTecnico = "Se ha presentado un problema inesperado de tipo excepción tratando de ejecutar la consulta SQL. Por favor, revise la traza completa del problema presentado para identificar lo que sucedió.";
+	        throw DataGestorGimnasioException.crear(excepcion, mensajeUsuario, mensajeTecnico);
+	    }
+	}
+
+	private String formarSentenciaConsultaSinParametros() {
+	    return "SELECT * FROM TipoIdentificacionEntity";
+	}
 }
 
 

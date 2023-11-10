@@ -5,18 +5,18 @@ import java.util.UUID;
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.CrossCuttingGestorGimnasioException;
 
 public class UtilUUID {
-	
+
 	private static final String DEFAULT_UUID_STRING = "00000000-0000-0000-0000-000000000000";
 	private static final UUID DEFAULT_UUID = UUID.fromString(DEFAULT_UUID_STRING);
-	
+
 	private UtilUUID() {
-		super();	
+		super();
 	}
-	
+
 	public static final UUID getDefaultUUID(final UUID uuid) {
 		return UtilObjeto.obtenerValorDefecto(uuid, DEFAULT_UUID);
 	}
-	
+
 	public static  final boolean isEqual(final UUID uuidOne, final UUID uuidTwo) {
 		return getDefaultUUID(uuidOne).equals(getDefaultUUID(uuidTwo));
 	}
@@ -28,7 +28,7 @@ public class UtilUUID {
 		}while(isEqual(uuid, DEFAULT_UUID));
 		return uuid;
 	}
-	
+
 	public static final UUID getUUIDFromString(final String uuidString) {
 		UUID uuid = DEFAULT_UUID;
 		if(UtilTexto.estaVacio(uuidString)){
@@ -42,7 +42,7 @@ public class UtilUUID {
 			var mensajeUsuario = "";
 			var mensajeTecnico = "";
 			throw CrossCuttingGestorGimnasioException.crear(exception,mensajeUsuario,mensajeTecnico);
-		
+
 		}catch (Exception exception) {
 			var mensajeUsuario = "";
 			var mensajeTecnico = "";
@@ -50,7 +50,7 @@ public class UtilUUID {
 		}
 		return uuid;
 	}
-	
+
 	public static final String getStringFormUUID(final UUID uuid) {
 		String uuidString = DEFAULT_UUID_STRING;
 		if(!UtilObjeto.esNulo(uuid)) {
@@ -58,7 +58,7 @@ public class UtilUUID {
 		}
 		return uuidString;
 	}
-	
+
 	public static final boolean esUuidPorDefecto(final UUID uuid) {
 		return isEqual(uuid, DEFAULT_UUID);
 	}

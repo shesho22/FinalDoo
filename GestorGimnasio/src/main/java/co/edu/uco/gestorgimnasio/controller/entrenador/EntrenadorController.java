@@ -28,18 +28,18 @@ import co.edu.uco.gestorgimnasio.service.facade.concrete.entrenador.RegistrarEnt
 @RestController
 @RequestMapping("/api/v1/entrenador")
 public final class EntrenadorController {
-	
-	
+
+
 	@GetMapping("/saludo")
 	public String saludo() {
 		return "hola";
 	}
-	
+
 	@GetMapping("/dummy")
 	public final TipoIdentificacionDTO obtenerDummy() {
 		return TipoIdentificacionDTO.crear();
 	}
-	
+
 	@GetMapping
 	public ResponseEntity<Respuesta<EntrenadorDTO>> consultar(@RequestBody EntrenadorDTO dto) {
 	    Respuesta<EntrenadorDTO> respuesta = new Respuesta<>();
@@ -71,7 +71,7 @@ public final class EntrenadorController {
 
 
 
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Respuesta<EntrenadorDTO>> consultarPorId(@PathVariable("id") UUID id) {
 	    Respuesta<EntrenadorDTO> respuesta = new Respuesta<>();
@@ -109,8 +109,8 @@ public final class EntrenadorController {
 
 
 
-	
-	
+
+
 	@PostMapping
 	public final EntrenadorDTO registrar(@RequestBody EntrenadorDTO dto) {
 	    Respuesta<EntrenadorDTO> respuesta = new Respuesta<>();
@@ -134,14 +134,14 @@ public final class EntrenadorController {
 	    return dto;
 	}
 
-	
+
 	@PutMapping
 	public final EntrenadorDTO modificar(@PathVariable("id") UUID id, @RequestBody EntrenadorDTO dto) {
 	    Respuesta<EntrenadorDTO> respuesta = new Respuesta<>();
 	    HttpStatus codigoHttp = HttpStatus.BAD_REQUEST;
 	    try {
 	        ModificarEntrenadorFacade facade = new ModificarEntrenadorFacade();
-	        dto.setId(id); 
+	        dto.setId(id);
 	        facade.execute(dto);
 	        codigoHttp = HttpStatus.OK;
 	        respuesta.getMensajes().add("El entrenador fue modificado exitosamente...");
@@ -159,7 +159,7 @@ public final class EntrenadorController {
 	    return dto;
 	}
 
-	
+
 
 	@DeleteMapping ("/{id}")
 	public ResponseEntity<String> eliminar(@PathVariable("id") UUID id) {
@@ -198,5 +198,5 @@ public final class EntrenadorController {
 
 
 
-	
+
 }

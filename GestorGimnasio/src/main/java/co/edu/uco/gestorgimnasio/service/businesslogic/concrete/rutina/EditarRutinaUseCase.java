@@ -66,14 +66,14 @@ public final class EditarRutinaUseCase implements UseCase<RutinaDomain> {
     }
 
 
- 
+
 
 
 	private final void validarNoExistenciaRutinaConMismoNombreYEntrenador(final String nombre,final EntrenadorDomain entrenador) {
     	final var domain = RutinaDomain.crear(null, nombre, entrenador, null);
 		final var entity=RutinaEntityMapper.convertToEntity(domain);
 		final var resultados = getRutinaDAO().consultar(entity);
-		
+
 		if(!resultados.isEmpty()) {
 
 			throw ServiceGestorGimnasioException.crear("Ya existe una rutina de este entrenador con el mismo nombre, por favor asigne otro nombre");

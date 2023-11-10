@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrenador</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="app">
+    <h1>Entrenador</h1>
+
+    <!-- Botones para navegar a otras páginas -->
+    <div id="navigation">
+      <button onclick="window.location.href='tipo_documento.html'">Tipo de Documento</button>
+      <button onclick="window.location.href='ejercicio.html'">Ejercicio</button>
+      <button onclick="window.location.href='rutina.html'">Rutina</button>
+    </div>
+
+    <!-- Agrega esto donde quieras mostrar las respuestas en tu página -->
+    <div id="response-message"></div>
+
+    <div id="content">
+      <div id="crud-form">
+        <label for="tipodoc_id">Tipo de Documento:</label>
+        <select id="tipodoc_id">
+          <!-- Opciones del tipo de documento pueden cargarse desde la base de datos -->
+          <!-- Por ejemplo: <option value="1">Cédula de Ciudadanía</option> -->
+
+        </select>
+
+        <label for="identificacion">Identificación:</label>
+        <input type="text" id="identificacion" placeholder="Identificación" required>
+
+        <label for="primer_nombre">Primer Nombre:</label>
+        <input type="text" id="primer_nombre" placeholder="Primer Nombre" required>
+
+        <label for="segundo_nombre">Segundo Nombre:</label>
+        <input type="text" id="segundo_nombre" placeholder="Segundo Nombre">
+
+        <label for="primer_apellido">Primer Apellido:</label>
+        <input type="text" id="primer_apellido" placeholder="Primer Apellido" required>
+
+        <label for="segundo_apellido">Segundo Apellido:</label>
+        <input type="text" id="segundo_apellido" placeholder="Segundo Apellido">
+
+        <label for="correo_electronico">Correo Electrónico:</label>
+        <input type="email" id="correo_electronico" placeholder="Correo Electrónico" required>
+
+        <label for="numero_telefono">Número de Teléfono:</label>
+        <input type="text" id="numero_telefono" placeholder="Número de Teléfono" required>
+
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fecha_nacimiento" required>
+
+        <button onclick="createTrainer()">Registrar Entrenador</button>
+      </div>
+
+      <div id="user-list">
+        <h2>Lista de Entrenadores</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo Electrónico</th>
+              <th>Teléfono</th>
+              <th>Fecha de Nacimiento</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="trainers"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

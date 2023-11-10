@@ -8,11 +8,11 @@ import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.service.businesslogic.UseCase;
 import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.entrenador.ModificarEntrenadorValidator;
 import co.edu.uco.gestorgimnasio.service.domain.entrenador.EntrenadorDomain;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.support.NombreCompletoClienteDomain;
+import co.edu.uco.gestorgimnasio.service.domain.entrenador.support.NombreCompletoDomain;
 import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.EntrenadorEntityMapper;
 
-public final class ModificarEntrenadorUseCase implements UseCase<EntrenadorDomain> {
+public final class ModificarEntrenadorUseCase implements UseCase<EntrenadorDomain,String> {
 
     private DAOFactory factoria;
 
@@ -21,7 +21,7 @@ public final class ModificarEntrenadorUseCase implements UseCase<EntrenadorDomai
     }
 
     @Override
-    public final void execute(EntrenadorDomain domain) {
+    public final void actualizar(EntrenadorDomain domain) {
         ModificarEntrenadorValidator.ejecutar(domain);
         validarExistenciaEntrenadorConMismoNombre(domain.getNombreCompleto());
         validarExistenciaEntrenadorConMismaIdentificacion(domain.getTipoidentificacion(), domain.getIdentificacion());
@@ -34,7 +34,7 @@ public final class ModificarEntrenadorUseCase implements UseCase<EntrenadorDomai
         getEntrenadorDAO().modificar(entity);
     }
 
-    private final void validarExistenciaEntrenadorConMismoNombre(final NombreCompletoClienteDomain nombre) {
+    private final void validarExistenciaEntrenadorConMismoNombre(final NombreCompletoDomain nombre) {
         var domain = EntrenadorDomain.crear(null, null, null, nombre, null, null, null);
         var entity = EntrenadorEntityMapper.convertToEntity(domain);
         var resultados = getEntrenadorDAO().consultar(entity);

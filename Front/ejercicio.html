@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="app">
+    <h1>Ejercicio</h1>
+
+    <!-- Botones para navegar a otras páginas -->
+    <div id="navigation">
+      <button onclick="window.location.href='index.html'">Entrenador</button>
+      <button onclick="window.location.href='tipo_documento.html'">Tipo de Documento</button>
+      <button onclick="window.location.href='rutina.html'">Rutina</button>
+    </div>
+
+    <!-- Agrega esto donde quieras mostrar las respuestas en tu página -->
+    <div id="response-message"></div>
+
+    <div id="content">
+      <div id="crud-form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Nombre" required>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" placeholder="Descripción" rows="4" required></textarea>
+
+        <label for="series">Series:</label>
+        <input type="number" id="series" placeholder="Series" required>
+
+        <label for="repeticiones">Repeticiones:</label>
+        <input type="number" id="repeticiones" placeholder="Repeticiones" required>
+
+        <button onclick="createExercise()">Crear Ejercicio</button>
+      </div>
+
+      <div id="user-list">
+        <h2>Lista de Ejercicios</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Series</th>
+              <th>Repeticiones</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="exercises"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
