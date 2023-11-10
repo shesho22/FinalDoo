@@ -8,7 +8,6 @@ import co.edu.uco.gestorgimnasio.crosscutting.util.UtilObjeto;
 import co.edu.uco.gestorgimnasio.data.dao.EntrenadorDAO;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.service.businesslogic.UseCase;
-import co.edu.uco.gestorgimnasio.service.domain.entrenador.EntrenadorDomain;
 
 public final class EliminarEntrenadorUseCase implements UseCase<UUID,String> {
 

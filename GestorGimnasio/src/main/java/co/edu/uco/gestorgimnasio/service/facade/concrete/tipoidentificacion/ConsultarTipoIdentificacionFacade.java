@@ -6,28 +6,28 @@ import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGi
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.TipoDAOFactory;
 import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.tipoidentificacion.ConsultarTipoIdentificacionUseCase;
+import co.edu.uco.gestorgimnasio.service.dto.TipoIdentificacionDTO;
+import co.edu.uco.gestorgimnasio.service.facade.Facade;
 
-public final class ConsultarTipoIdentificacionFacade  {
+public final class ConsultarTipoIdentificacionFacade implements Facade<TipoIdentificacionDTO> {
 
-	public void execute() {
-
+    @Override
+    public void execute() {
         final DAOFactory daoFactory = DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
 
         try {
             daoFactory.iniciarTransaccion();
-
-            var useCase = new ConsultarTipoIdentificacionUseCase(daoFactory);
+            final var useCase = new ConsultarTipoIdentificacionUseCase(daoFactory);
             useCase.obtenerTodos();
-
             daoFactory.confirmarTransaccion();
         } catch (final GestorGimnasioException excepcion) {
             daoFactory.cancelarTransaccion();
             throw excepcion;
         } catch (Exception exception) {
             daoFactory.cancelarTransaccion();
-            var mensajeUsuario = "Se ha presentado un error inesperado tratando de consultar un tipo de identificación";
-            var mensajeTecnico = "Se ha presentado un error inesperado tratando de consultar un tipo de identificación. Verifique la trasa completa ";
-            throw ServiceGestorGimnasioException.crear(exception, mensajeUsuario, mensajeTecnico);
+            throw ServiceGestorGimnasioException.crear(exception,
+                    "Se ha presentado un error inesperado tratando de consultar una rutina",
+                    "Se ha presentado un error inesperado tratando de consultar una rutina. Verifique la traza completa ");
         } finally {
             daoFactory.cerrarConexion();
         }

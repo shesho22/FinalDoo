@@ -25,7 +25,7 @@ public final class RegistrarEjercicioFacade implements Facade<EjercicioDTO>{
 			daoFactory.iniciarTransaccion();
 
 			var useCase = new RegistrarEjercicioUseCase(daoFactory);
-			useCase.execute(domain);
+			useCase.crear(domain);
 
 			daoFactory.confirmarTransaccion();
 

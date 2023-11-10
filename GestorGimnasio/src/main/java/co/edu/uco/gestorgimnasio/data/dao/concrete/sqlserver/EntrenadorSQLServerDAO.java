@@ -320,5 +320,29 @@ public final class EntrenadorSQLServerDAO extends SQLDAO implements EntrenadorDA
 		}
 		return listaResultados;
 	}
+
+
+	@Override
+	public final List<EntrenadorEntity> consultar() {
+	    final String sentencia = formarSentenciaConsultaSinParametros();
+
+	    try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia)) {
+	        return ejecutarConaulta(sentenciaPreparada);
+	    } catch (final DataGestorGimnasioException excepcion) {
+	        throw excepcion;
+	    } catch (final SQLException excepcion) {
+	        var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta de entrenador...";
+	        var mensajeTecnico = "Se ha presentado un problema en el método ejecutarConsulta en la clase EntrenadorSQLServerDAO tratando de ejecutar la consulta SQL. Por favor, revise la traza completa del problema presentado para identificar lo que sucedió.";
+	        throw DataGestorGimnasioException.crear(excepcion, mensajeUsuario, mensajeTecnico);
+	    } catch (final Exception excepcion) {
+	        var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta de los entrenadores...";
+	        var mensajeTecnico = "Se ha presentado un problema inesperado de tipo excepción tratando de ejecutar la consulta SQL. Por favor, revise la traza completa del problema presentado para identificar lo que sucedió.";
+	        throw DataGestorGimnasioException.crear(excepcion, mensajeUsuario, mensajeTecnico);
+	    }
+	}
+
+	private String formarSentenciaConsultaSinParametros() {
+	    return "SELECT * FROM entrenador";
+	}
 }
 

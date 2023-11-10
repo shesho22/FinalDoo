@@ -23,7 +23,7 @@ public final class RegistrarRutinaFacade implements Facade<RutinaDTO> {
         try {
             daoFactory.iniciarTransaccion();
             final var useCase = new RegistrarRutinaUseCase(daoFactory);
-            useCase.execute(domain);
+            useCase.crear(domain);
             daoFactory.confirmarTransaccion();
         } catch (final GestorGimnasioException excepcion) {
             daoFactory.cancelarTransaccion();

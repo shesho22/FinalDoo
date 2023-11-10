@@ -5,7 +5,7 @@ import co.edu.uco.gestorgimnasio.crosscutting.exception.GestorGimnasioException;
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGimnasioException;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.TipoDAOFactory;
-import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.tipoidentificacion.ModificarTipoIdentificacionUseCase;
+import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.tipoidentificacion.EditarTipoIdentificacionUseCase;
 import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.tipoidentificacion.ModificarTipoIdentificacionValidator;
 import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.edu.uco.gestorgimnasio.service.dto.TipoIdentificacionDTO;
@@ -24,7 +24,7 @@ public final class ModificarTipoIdentificacionFacade implements Facade<TipoIdent
         try {
             daoFactory.iniciarTransaccion();
 
-            var useCase = new ModificarTipoIdentificacionUseCase(daoFactory);
+            var useCase = new EditarTipoIdentificacionUseCase(daoFactory);
             useCase.actualizar(domain);
 
             daoFactory.confirmarTransaccion();

@@ -7,7 +7,6 @@ import co.edu.uco.gestorgimnasio.crosscutting.util.UtilObjeto;
 import co.edu.uco.gestorgimnasio.data.dao.EjercicioDAO;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.service.businesslogic.UseCase;
-import co.edu.uco.gestorgimnasio.service.domain.ejercicio.EjercicioDomain;
 
 public final class EliminarEjercicioUseCase implements UseCase<UUID,String> {
 
@@ -22,8 +21,8 @@ public final class EliminarEjercicioUseCase implements UseCase<UUID,String> {
     	validarExistencia(id);
     	eliminarPorId(id);
     }
-    
-    
+
+
     private void eliminarPorId(final UUID id) {
         getEjercicioDAO().eliminar(id);
     }

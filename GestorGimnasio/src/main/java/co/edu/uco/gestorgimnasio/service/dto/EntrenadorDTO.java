@@ -49,7 +49,7 @@ public class EntrenadorDTO {
 	public static final EntrenadorDTO crear() {
 		return new EntrenadorDTO();
 	}
-	
+
 	public final UUID getId() {
 		return id;
 	}

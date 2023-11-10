@@ -21,7 +21,7 @@ public final class ConsultarPorIdTipoIdentificacionUseCase implements UseCase<Ti
 
     @Override
     public TipoIdentificacionDomain leer(UUID id) {
-    	
+
         if (id == null) {
             var mensajeUsuario = "Se requiere un ID valido";
             throw ServiceGestorGimnasioException.crear(mensajeUsuario);

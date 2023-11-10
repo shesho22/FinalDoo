@@ -25,7 +25,7 @@ public final class RegistrarEntrenadorFacade implements Facade<EntrenadorDTO>{
 			daoFactory.iniciarTransaccion();
 
 			var useCase = new RegistrarEntrenadorUseCase(daoFactory);
-			useCase.execute(domain);
+			useCase.crear(domain);
 
 			daoFactory.confirmarTransaccion();
 

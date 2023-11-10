@@ -6,37 +6,28 @@ import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGi
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.TipoDAOFactory;
 import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.ejercicio.ConsultarEjercicioUseCase;
-import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.ejercicio.ConsultarEjercicioValidator;
-import co.edu.uco.gestorgimnasio.service.domain.ejercicio.EjercicioDomain;
 import co.edu.uco.gestorgimnasio.service.dto.EjercicioDTO;
 import co.edu.uco.gestorgimnasio.service.facade.Facade;
-import co.edu.uco.gestorgimnasio.service.mapper.dto.concrete.EjercicioDTOMapper;
 
 public final class ConsultarEjercicioFacade implements Facade<EjercicioDTO> {
 
     @Override
-    public void execute(EjercicioDTO dto) {
-        final EjercicioDomain domain = EjercicioDTOMapper.convertirToDomain(dto);
-        ConsultarEjercicioValidator.ejecutar(domain);
-
+    public void execute() {
         final DAOFactory daoFactory = DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
 
         try {
             daoFactory.iniciarTransaccion();
-
-            var useCase = new ConsultarEjercicioUseCase(daoFactory);
-            useCase.execute(domain);
-
+            final var useCase = new ConsultarEjercicioUseCase(daoFactory);
+            useCase.obtenerTodos();
             daoFactory.confirmarTransaccion();
-
         } catch (final GestorGimnasioException excepcion) {
             daoFactory.cancelarTransaccion();
             throw excepcion;
         } catch (Exception exception) {
             daoFactory.cancelarTransaccion();
-            var mensajeUsuario = "Se ha presentado un error inesperado tratando de consultar un ejercicio";
-            var mensajeTecnico = "Se ha presentado un error inesperado tratando de consultar un ejercicio. Verifique la trasa completa ";
-            throw ServiceGestorGimnasioException.crear(exception, mensajeUsuario, mensajeTecnico);
+            throw ServiceGestorGimnasioException.crear(exception,
+                    "Se ha presentado un error inesperado tratando de consultar una rutina",
+                    "Se ha presentado un error inesperado tratando de consultar una rutina. Verifique la traza completa ");
         } finally {
             daoFactory.cerrarConexion();
         }

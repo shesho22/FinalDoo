@@ -24,7 +24,7 @@ public final class EliminarRutinaFacade implements Facade<RutinaDTO> {
             daoFactory.iniciarTransaccion();
 
             final var useCase = new EliminarRutinaUseCase(daoFactory);
-            useCase.execute(domain);
+            useCase.eliminar(domain.getId());
 
             daoFactory.confirmarTransaccion();
 

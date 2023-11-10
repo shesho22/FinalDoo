@@ -4,11 +4,9 @@ import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGi
 import co.edu.uco.gestorgimnasio.crosscutting.messages.CatalogoMensajes;
 import co.edu.uco.gestorgimnasio.crosscutting.messages.enumerator.CodigoMensaje;
 import co.edu.uco.gestorgimnasio.crosscutting.util.UtilObjeto;
-import co.edu.uco.gestorgimnasio.data.entity.support.NombreCompletoEntrenadorEntity;
 import co.edu.uco.gestorgimnasio.service.domain.entrenador.support.NombreCompletoDomain;
 import co.edu.uco.gestorgimnasio.service.dto.support.NombreCompletoDTO;
 import co.edu.uco.gestorgimnasio.service.mapper.dto.DTOMapper;
-import co.edu.uco.gestorgimnasio.service.mapper.entity.EntityMapper;
 
 public final class NombreCompletoDTOMapper implements DTOMapper<NombreCompletoDTO, NombreCompletoDomain>{
 	private static final DTOMapper<NombreCompletoDTO, NombreCompletoDomain> instancia = new NombreCompletoDTOMapper();

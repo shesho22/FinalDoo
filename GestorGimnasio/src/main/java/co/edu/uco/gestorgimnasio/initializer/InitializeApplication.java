@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan (basePackages="co.edu.uco.gestorgimnasio.controller")
+@ComponentScan (basePackages={"co.edu.uco.gestorgimnasio.controller","co.edu.uco.gestorgimnasio.initializer"})
 public class InitializeApplication {
 
 	public static void main(String[] args) {

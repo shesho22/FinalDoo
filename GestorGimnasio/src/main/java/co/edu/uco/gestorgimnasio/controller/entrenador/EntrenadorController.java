@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ControllerGesto
 import co.edu.uco.gestorgimnasio.service.dto.EntrenadorDTO;
 import co.edu.uco.gestorgimnasio.service.dto.TipoIdentificacionDTO;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.entrenador.ConsultarEntrenadorFacade;
+import co.edu.uco.gestorgimnasio.service.facade.concrete.entrenador.ConsultarPorIdEntrenadorFacade;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.entrenador.EliminarEntrenadorFacade;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.entrenador.ModificarEntrenadorFacade;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.entrenador.RegistrarEntrenadorFacade;
@@ -46,13 +48,10 @@ public final class EntrenadorController {
 	    HttpStatus codigoHttp = HttpStatus.BAD_REQUEST;
 
 	    try {
-	        ConsultarEntrenadorFacade facade = new ConsultarEntrenadorFacade();
-	        facade.execute(dto);
+	    	ConsultarEntrenadorFacade facade = new ConsultarEntrenadorFacade();
+	        facade.execute();
 	        List<EntrenadorDTO> resultados = new ArrayList<>();
-	        resultados.add(dto);
-
-	        codigoHttp = HttpStatus.OK;
-	        respuesta.getMensajes().add("La consulta de tipo del entrenador se realizó exitosamente.");
+	        respuesta.getMensajes().add("La consulta de entrenador se realizó exitosamente.");
 	        respuesta.setDatos(resultados);
 	    } catch (final GestorGimnasioException exception) {
 	        respuesta.getMensajes().add(exception.getMensajeUsuario());
@@ -80,8 +79,7 @@ public final class EntrenadorController {
 	    try {
 	    	EntrenadorDTO entrenador = new EntrenadorDTO();
 	    	entrenador.setId(id);
-
-	    	ConsultarEntrenadorFacade facade = new ConsultarEntrenadorFacade();
+	        ConsultarPorIdEntrenadorFacade facade = new ConsultarPorIdEntrenadorFacade(null);
 	        facade.execute(entrenador);
 	        if (entrenador.getId() != null) {
 	            codigoHttp = HttpStatus.OK;

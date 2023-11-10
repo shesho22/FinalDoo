@@ -14,4 +14,5 @@ public interface EjercicioDAO {
 	void eliminar(UUID id);
 	Optional<EjercicioEntity> consultarPorId(UUID id);
 	List<EjercicioEntity> consultar(EjercicioEntity entity);
+	List<EjercicioEntity> consultar();
 }

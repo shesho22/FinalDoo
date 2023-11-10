@@ -26,7 +26,7 @@ public final class EliminarEntrenadorFacade implements Facade<EntrenadorDTO> {
             daoFactory.iniciarTransaccion();
 
             var useCase = new EliminarEntrenadorUseCase(daoFactory);
-            useCase.execute(domain);
+            useCase.eliminar(domain.getId());
 
             daoFactory.confirmarTransaccion();
 

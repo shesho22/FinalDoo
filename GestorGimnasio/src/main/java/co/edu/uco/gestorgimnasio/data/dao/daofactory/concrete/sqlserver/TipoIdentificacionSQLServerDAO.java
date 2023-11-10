@@ -71,12 +71,12 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 	}
 
 	@Override
-	public final void eliminar(final TipoIdentificacionEntity entity) {
+	public final void eliminar(final UUID uuid) {
 	    final var sentencia = new StringBuilder();
 	    sentencia.append("DELETE FROM TipoIdentificacion WHERE id = ?");
 
 	    try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())) {
-	        sentenciaPreparada.setObject(1, entity.getId());
+	        sentenciaPreparada.setObject(1,uuid);
 	        sentenciaPreparada.executeUpdate();
 	    } catch (final SQLException excepcion) {
 	        var mensajeUsuario = "Se ha presentado un problema tratando de eliminar la información del tipo de identificación...";
@@ -236,7 +236,7 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 		return listaResultados;
 	}
 
-	
+
 	@Override
 	public final List<TipoIdentificacionEntity> consultar() {
 	    final String sentencia = formarSentenciaConsultaSinParametros();
@@ -259,6 +259,8 @@ public final class TipoIdentificacionSQLServerDAO extends SQLDAO implements Tipo
 	private String formarSentenciaConsultaSinParametros() {
 	    return "SELECT * FROM TipoIdentificacionEntity";
 	}
+
+
 
 
 

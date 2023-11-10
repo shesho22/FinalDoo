@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.uco.gestorgimnasio.controller.support.response.Respuesta;
 import co.edu.uco.gestorgimnasio.crosscutting.exception.GestorGimnasioException;
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ControllerGestorGimnasioException;
-import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.tipoidentificacion.ConsultarPorIdTipoIdentificacionUseCase;
 import co.edu.uco.gestorgimnasio.service.dto.TipoIdentificacionDTO;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.tipoidentificacion.ConsultarPorIdTipoIdentificacionFacade;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.tipoidentificacion.ConsultarTipoIdentificacionFacade;

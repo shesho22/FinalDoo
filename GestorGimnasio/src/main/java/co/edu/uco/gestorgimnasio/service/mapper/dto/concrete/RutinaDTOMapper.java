@@ -46,7 +46,7 @@ private static final DTOMapper<RutinaDTO, RutinaDomain> instancia = new RutinaDT
 	public static final RutinaDTO convertirToDTO(final RutinaDomain domain) {
 		return instancia.toDTO(domain);
 	}
-	
+
 	public static List<EjercicioDomain> convertToDomainList(List<EjercicioDTO> ejercicioDTO) {
         List<EjercicioDomain> ejercicioDomains = new ArrayList<>();
 

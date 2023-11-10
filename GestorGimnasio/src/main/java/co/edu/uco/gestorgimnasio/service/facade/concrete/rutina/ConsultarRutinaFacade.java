@@ -5,29 +5,20 @@ import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGi
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.TipoDAOFactory;
 import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.rutina.ConsultarRutinaUseCase;
-import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.rutina.ConsultarRutinaValidator;
-import co.edu.uco.gestorgimnasio.service.domain.rutina.RutinaDomain;
 import co.edu.uco.gestorgimnasio.service.dto.RutinaDTO;
 import co.edu.uco.gestorgimnasio.service.facade.Facade;
-import co.edu.uco.gestorgimnasio.service.mapper.dto.concrete.RutinaDTOMapper;
 
 public final class ConsultarRutinaFacade implements Facade<RutinaDTO> {
 
     @Override
-    public void execute(RutinaDTO dto) {
-        final RutinaDomain domain = RutinaDTOMapper.convertirToDomain(dto);
-        ConsultarRutinaValidator.ejecutar(domain);
-
+    public void execute() {
         final DAOFactory daoFactory = DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
 
         try {
             daoFactory.iniciarTransaccion();
-
             final var useCase = new ConsultarRutinaUseCase(daoFactory);
-            useCase.execute(domain);
-
+            useCase.obtenerTodos();
             daoFactory.confirmarTransaccion();
-
         } catch (final GestorGimnasioException excepcion) {
             daoFactory.cancelarTransaccion();
             throw excepcion;

@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,12 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.uco.gestorgimnasio.controller.support.response.Respuesta;
 import co.edu.uco.gestorgimnasio.crosscutting.exception.GestorGimnasioException;
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ControllerGestorGimnasioException;
-import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
-import co.edu.uco.gestorgimnasio.data.dao.daofactory.TipoDAOFactory;
-import co.edu.uco.gestorgimnasio.service.businesslogic.concrete.rutina.ConsultarPorIdRutinaUseCase;
-import co.edu.uco.gestorgimnasio.service.domain.rutina.RutinaDomain;
 import co.edu.uco.gestorgimnasio.service.dto.RutinaDTO;
 import co.edu.uco.gestorgimnasio.service.dto.TipoIdentificacionDTO;
+import co.edu.uco.gestorgimnasio.service.facade.concrete.rutina.ConsultarPorIdRutinaFacade;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.rutina.ConsultarRutinaFacade;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.rutina.EliminarRutinaFacade;
 import co.edu.uco.gestorgimnasio.service.facade.concrete.rutina.ModificarRutinaFacade;
@@ -80,11 +78,10 @@ public final class RutinaController {
 	    Respuesta<RutinaDTO> respuesta = new Respuesta<>();
 	    HttpStatus codigoHttp = HttpStatus.OK;
 	    try {
-	        DAOFactory daoFactory = DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
-	        ConsultarPorIdRutinaUseCase useCase = new ConsultarPorIdRutinaUseCase(daoFactory);
-	        RutinaDomain tipoIdentificacionDomain = new RutinaDomain(id, null, null, null);
-	        useCase.execute(tipoIdentificacionDomain);
-	        respuesta.getMensajes().add("La consulta de rutina por ID se realizó exitosamente.");
+	    	RutinaDTO rutina = new RutinaDTO();
+	    	rutina.setId(id);
+	        ConsultarPorIdRutinaFacade facade = new ConsultarPorIdRutinaFacade(null);
+	        facade.execute(rutina);
 	    } catch (final GestorGimnasioException exception) {
 	        codigoHttp = HttpStatus.NOT_FOUND;
 	        respuesta.getMensajes().add("No se encontró ningúna rutina con el ID proporcionado.");

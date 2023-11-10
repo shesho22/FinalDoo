@@ -13,4 +13,6 @@ public interface EntrenadorDAO {
 	void eliminar(UUID id);
 	Optional<EntrenadorEntity> consultarPorId(UUID id);
 	List<EntrenadorEntity> consultar(EntrenadorEntity entity);
+	List<EntrenadorEntity> consultar();
+
 }

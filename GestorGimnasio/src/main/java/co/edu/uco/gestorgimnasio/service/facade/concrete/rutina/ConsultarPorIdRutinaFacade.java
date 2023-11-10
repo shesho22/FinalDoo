@@ -16,36 +16,36 @@ public final class ConsultarPorIdRutinaFacade implements Facade<RutinaDTO> {
 
 	private final ConsultarPorIdRutinaUseCase useCase;
 
-    public ConsultarPorIdRutinaFacade(ConsultarPorIdRutinaUseCase useCase) {
-        this.useCase = useCase;
-    }
+	    public ConsultarPorIdRutinaFacade(ConsultarPorIdRutinaUseCase useCase) {
+	        this.useCase = useCase;
+	    }
 
-    @Override
-    public void execute(RutinaDTO dto) {
-        final RutinaDomain domain = RutinaDTOMapper.convertirToDomain(dto);
-        ConsultarRutinaValidator.ejecutar(domain);
+	    @Override
+	    public void execute(RutinaDTO dto) {
+	        final RutinaDomain domain = RutinaDTOMapper.convertirToDomain(dto);
+	        ConsultarRutinaValidator.ejecutar(domain);
 
-        final DAOFactory daoFactory = DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
+	        final DAOFactory daoFactory = DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
 
-        try {
-            daoFactory.iniciarTransaccion();
+	        try {
+	            daoFactory.iniciarTransaccion();
 
-            useCase.execute(domain);
+	            useCase.leer(domain.getId());
 
-            daoFactory.confirmarTransaccion();
+	            daoFactory.confirmarTransaccion();
 
-        } catch (final GestorGimnasioException excepcion) {
-            daoFactory.cancelarTransaccion();
-            throw excepcion;
-        } catch (Exception exception) {
-            daoFactory.cancelarTransaccion();
-            var mensajeUsuario = "Se ha presentado un error inesperado tratando de consultar una rutina por ID.";
-            var mensajeTecnico = "Se ha presentado un error inesperado tratando de consultar una rutina por ID. Verifique la traza completa.";
-            throw ServiceGestorGimnasioException.crear(exception, mensajeUsuario, mensajeTecnico);
-        } finally {
-            daoFactory.cerrarConexion();
-        }
-    }
+	        } catch (final GestorGimnasioException excepcion) {
+	            daoFactory.cancelarTransaccion();
+	            throw excepcion;
+	        } catch (Exception exception) {
+	            daoFactory.cancelarTransaccion();
+	            var mensajeUsuario = "Se ha presentado un error inesperado tratando de consultar una rutina por ID.";
+	            var mensajeTecnico = "Se ha presentado un error inesperado tratando de consultar una rutina por ID. Verifique la traza completa.";
+	            throw ServiceGestorGimnasioException.crear(exception, mensajeUsuario, mensajeTecnico);
+	        } finally {
+	            daoFactory.cerrarConexion();
+	        }
+	    }
 
 }
 

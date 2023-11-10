@@ -25,7 +25,7 @@ public final class ModificarEntrenadorFacade implements Facade<EntrenadorDTO> {
             daoFactory.iniciarTransaccion();
 
             var useCase = new ModificarEntrenadorUseCase(daoFactory);
-            useCase.execute(domain);
+            useCase.actualizar(domain);
 
             daoFactory.confirmarTransaccion();
 

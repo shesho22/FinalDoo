@@ -20,7 +20,7 @@ public final class EliminarTipoIdentificacionUseCase implements UseCase<UUID, St
     public final void eliminar(UUID id) {
         // Validar la existencia del tipo de identificación
         validarExistencia(id);
-        
+
         // Eliminar el tipo de identificación
         eliminarPorId(id);
     }

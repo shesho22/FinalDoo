@@ -33,7 +33,7 @@ public class EjercicioDTO {
 	public static final EjercicioDTO crear(UUID uuid, String string, String string2, String string3, String string4) {
 		return new EjercicioDTO(uuid,string,string2,string3,string4);
 	}
-	
+
 	public static final EjercicioDTO crear() {
 		return new EjercicioDTO();
 	}

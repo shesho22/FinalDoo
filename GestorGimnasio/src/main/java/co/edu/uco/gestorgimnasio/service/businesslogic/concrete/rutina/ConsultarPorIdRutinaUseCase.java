@@ -11,7 +11,7 @@ import co.edu.uco.gestorgimnasio.service.businesslogic.UseCase;
 import co.edu.uco.gestorgimnasio.service.domain.rutina.RutinaDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.RutinaEntityMapper;
 
-public final class ConsultarPorIdRutinaUseCase implements UseCase<RutinaDomain> {
+public final class ConsultarPorIdRutinaUseCase implements UseCase<RutinaDomain,UUID> {
 
     private DAOFactory factoria;
 
@@ -20,13 +20,13 @@ public final class ConsultarPorIdRutinaUseCase implements UseCase<RutinaDomain> 
     }
 
     @Override
-    public void execute(RutinaDomain domain) {
-        if (domain == null || domain.getId() == null) {
+    public RutinaDomain leer(UUID uuid) {
+        if (uuid == null){
             var mensajeUsuario = "Se requiere un objeto RutinaDomain con un ID válido";
             throw ServiceGestorGimnasioException.crear(mensajeUsuario);
         }
 
-        consultarRutinaPorId(domain.getId());
+        return consultarRutinaPorId(uuid);
     }
 
     private RutinaDomain consultarRutinaPorId(UUID id) {

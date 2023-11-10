@@ -1,61 +1,54 @@
 package co.edu.uco.gestorgimnasio.service.businesslogic.concrete.ejercicio;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 import co.edu.uco.gestorgimnasio.crosscutting.exception.concrete.ServiceGestorGimnasioException;
-import co.edu.uco.gestorgimnasio.crosscutting.util.UtilObjeto;
 import co.edu.uco.gestorgimnasio.data.dao.EjercicioDAO;
 import co.edu.uco.gestorgimnasio.data.dao.daofactory.DAOFactory;
+import co.edu.uco.gestorgimnasio.data.entity.EjercicioEntity;
 import co.edu.uco.gestorgimnasio.service.businesslogic.UseCase;
 import co.edu.uco.gestorgimnasio.service.domain.ejercicio.EjercicioDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.EjercicioEntityMapper;
 
-public final class ConsultarEjercicioUseCase implements UseCase<EjercicioDomain> {
+public final class ConsultarEjercicioUseCase implements UseCase<EjercicioDomain,String> {
 
-    private DAOFactory factoria;
+	   private final DAOFactory factoria;
 
-    public ConsultarEjercicioUseCase(final DAOFactory factoria) {
-        setFactoria(factoria);
-    }
+	    public ConsultarEjercicioUseCase(final DAOFactory factoria) {
+	        this.factoria = factoria;
+	    }
 
-    @Override
-    public void execute(EjercicioDomain domain) {
-        if (domain == null || domain.getId() == null) {
-            var mensajeUsuario = "Se requiere un objeto EjercicioDomain con un ID válido";
-            throw ServiceGestorGimnasioException.crear(mensajeUsuario);
-        }
+	    @Override
+	    public List<EjercicioDomain> obtenerTodos() {
+	        List<EjercicioEntity> entities = getEjercicioDAO().consultar();
 
-        consultarEjercicioPorId(domain.getId());
-    }
+	        if (entities.isEmpty()) {
+	            var mensajeUsuario = "No se encuentran ejercicios";
+	            throw ServiceGestorGimnasioException.crear(mensajeUsuario);
+	        }
 
-    private EjercicioDomain consultarEjercicioPorId(UUID id) {
-        var resultado = getEjercicioDAO().consultarPorId(id);
+	        List<EjercicioDomain> domainList = new ArrayList<>();
+	        for (EjercicioEntity entity : entities) {
+	        	EjercicioDomain domain = EjercicioEntityMapper.convertToDomain(entity);
+	            domainList.add(domain);
+	        }
 
-        if (resultado.isEmpty()) {
-            var mensajeUsuario = "No existe un ejercicio con el ID " + id;
-            throw ServiceGestorGimnasioException.crear(mensajeUsuario);
-        }
+	        return domainList;
+	    }
 
-        var entity = resultado.get();
-        return EjercicioEntityMapper.convertToDomain(entity);
-    }
+	    private final EjercicioDAO getEjercicioDAO () {
+	        return getFactoria().obtenerEjercicioDAO();
+	    }
 
-    private final DAOFactory getFactoria() {
-        return factoria;
-    }
-
-    private final void setFactoria(final DAOFactory factoria) {
-        if (UtilObjeto.esNulo(factoria)) {
-            var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta del ejercicio";
-            var mensajeTecnico = "Se ha presentado un problema en setFactoria";
-            throw ServiceGestorGimnasioException.crear(mensajeUsuario, mensajeTecnico);
-        }
-        this.factoria = factoria;
-    }
-
-    private final EjercicioDAO getEjercicioDAO() {
-        return getFactoria().obtenerEjercicioDAO();
-    }
+	    private final DAOFactory getFactoria() {
+	        if (factoria == null) {
+	            var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la operación";
+	            var mensajeTecnico = "El atributo factoria no ha sido inicializado correctamente.";
+	            throw ServiceGestorGimnasioException.crear(mensajeUsuario, mensajeTecnico);
+	        }
+	        return factoria;
+	    }
 }
 
 

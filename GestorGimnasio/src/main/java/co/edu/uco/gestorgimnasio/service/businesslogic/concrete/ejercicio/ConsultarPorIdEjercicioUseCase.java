@@ -11,7 +11,7 @@ import co.edu.uco.gestorgimnasio.service.businesslogic.UseCase;
 import co.edu.uco.gestorgimnasio.service.domain.ejercicio.EjercicioDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.EjercicioEntityMapper;
 
-public final class ConsultarPorIdEjercicioUseCase implements UseCase<EjercicioDomain> {
+public final class ConsultarPorIdEjercicioUseCase implements UseCase<EjercicioDomain,UUID> {
 
     private DAOFactory factoria;
 
@@ -20,13 +20,13 @@ public final class ConsultarPorIdEjercicioUseCase implements UseCase<EjercicioDo
     }
 
     @Override
-    public void execute(EjercicioDomain domain) {
-        if (domain == null || domain.getId() == null) {
+    public EjercicioDomain leer(UUID uuid) {
+        if (uuid == null) {
             var mensajeUsuario = "Se requiere un objeto EjercicioDomain con un ID válido";
             throw ServiceGestorGimnasioException.crear(mensajeUsuario);
         }
 
-        consultarEjercicioPorId(domain.getId());
+        return consultarEjercicioPorId(uuid);
     }
 
     private EjercicioDomain consultarEjercicioPorId(UUID id) {

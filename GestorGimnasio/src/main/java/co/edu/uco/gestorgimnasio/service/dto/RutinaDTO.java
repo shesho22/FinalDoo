@@ -30,7 +30,7 @@ public class RutinaDTO {
     public static final RutinaDTO crear(UUID id, String nombre, EntrenadorDTO entrenadorEntity, List<EjercicioDTO> list) {
         return new RutinaDTO(id,nombre,entrenadorEntity,list);
     }
-    
+
     public static final RutinaDTO crear() {
         return new RutinaDTO();
     }
@@ -70,7 +70,7 @@ public class RutinaDTO {
         this.entrenador = entrenador;
         return this;
     }
-    
+
 
 }
 

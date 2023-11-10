@@ -14,7 +14,7 @@ import co.edu.uco.gestorgimnasio.service.mapper.dto.concrete.EjercicioDTOMapper;
 
 public final class ConsultarPorIdEjercicioFacade implements Facade<EjercicioDTO> {
 
-    private final ConsultarPorIdEjercicioUseCase useCase;
+	private final ConsultarPorIdEjercicioUseCase useCase;
 
     public ConsultarPorIdEjercicioFacade(ConsultarPorIdEjercicioUseCase useCase) {
         this.useCase = useCase;
@@ -30,7 +30,7 @@ public final class ConsultarPorIdEjercicioFacade implements Facade<EjercicioDTO>
         try {
             daoFactory.iniciarTransaccion();
 
-            useCase.execute(domain);
+            useCase.leer(domain.getId());
 
             daoFactory.confirmarTransaccion();
 

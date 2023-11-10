@@ -11,11 +11,11 @@ import co.edu.uco.gestorgimnasio.service.businesslogic.validator.concrete.tipoid
 import co.edu.uco.gestorgimnasio.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.edu.uco.gestorgimnasio.service.mapper.entity.concrete.TipoIdentificacionEntityMapper;
 
-public final class ModificarTipoIdentificacionUseCase implements UseCase<TipoIdentificacionDomain, String> {
+public final class EditarTipoIdentificacionUseCase implements UseCase<TipoIdentificacionDomain, String> {
 
     private DAOFactory factoria;
 
-    public ModificarTipoIdentificacionUseCase(final DAOFactory factoria) {
+    public EditarTipoIdentificacionUseCase(final DAOFactory factoria) {
         setFactoria(factoria);
     }
 
@@ -23,10 +23,10 @@ public final class ModificarTipoIdentificacionUseCase implements UseCase<TipoIde
     public final void actualizar(TipoIdentificacionDomain domain) {
         // Validar el objeto TipoIdentificacionDomain
         RegistrarTipoIdentificacionValidator.ejecutar(domain);
-        
+
         // Validar la existencia del nombre del tipo de identificación
         validarExistenciaTipoIdentificacion(domain.getCodigo());
-        
+
         // Modificar el tipo de identificación
         modificarTipoIdentificacion(domain);
     }
@@ -40,7 +40,7 @@ public final class ModificarTipoIdentificacionUseCase implements UseCase<TipoIde
     private final void validarExistenciaTipoIdentificacion(final String nombre) {
         // Crea un dominio temporal para buscar duplicados
         var domain = TipoIdentificacionDomain.crear(null, null, nombre, false);
-        
+
         // Convierte el dominio en una entidad y consulta la base de datos
         var entity = TipoIdentificacionEntityMapper.convertToEntity(domain);
         var resultados = getTipoIdentificacionDAO().consultar(entity);

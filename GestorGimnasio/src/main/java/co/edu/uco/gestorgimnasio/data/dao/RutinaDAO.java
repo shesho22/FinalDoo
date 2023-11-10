@@ -19,4 +19,6 @@ public interface RutinaDAO {
 
     List<RutinaEntity> consultar(RutinaEntity entity);
 
+    List<RutinaEntity> consultar();
+
 }

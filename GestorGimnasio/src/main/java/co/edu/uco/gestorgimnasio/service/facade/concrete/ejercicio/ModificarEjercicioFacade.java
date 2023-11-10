@@ -25,7 +25,7 @@ public final class ModificarEjercicioFacade implements Facade<EjercicioDTO> {
             daoFactory.iniciarTransaccion();
 
             var useCase = new ModificarEjercicioUseCase(daoFactory);
-            useCase.execute(domain);
+            useCase.actualizar(domain);
 
             daoFactory.confirmarTransaccion();
 

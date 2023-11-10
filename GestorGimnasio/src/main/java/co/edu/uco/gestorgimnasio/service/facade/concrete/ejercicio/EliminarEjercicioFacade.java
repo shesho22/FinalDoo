@@ -26,7 +26,7 @@ public final class EliminarEjercicioFacade implements Facade<EjercicioDTO> {
             daoFactory.iniciarTransaccion();
 
             var useCase = new EliminarEjercicioUseCase(daoFactory);
-            useCase.execute(domain);
+            useCase.eliminar(domain.getId());
 
             daoFactory.confirmarTransaccion();
 
