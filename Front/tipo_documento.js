@@ -1,45 +1,67 @@
-// Archivo "tipo_documento.js"
-const { v4: uuidv4 } = require('uuid'); // Importa la función v4 de la biblioteca uuid
+// Espera a que el documento HTML se cargue completamente
+document.addEventListener('DOMContentLoaded', function () {
 
-// Función para crear un Tipo de Documento
-function createDocumentType() {
-  const codigo = document.getElementById("codigo").value;
-  const nombre = document.getElementById("nombre").value;
-  const estado = true;
-  const id = uuidv4(); // Genera un UUID aleatorio
+  // Función para obtener la lista de Tipos de Documento
+  function getDocumentTypes() {
+    fetch('http://localhost/gestorgimnasio/api/v1/tipoidentificacion')
+      .then(response => response.json())
+      .then(data => {
+        const documentTypes = document.getElementById('documentTypes');
+        documentTypes.innerHTML = '';
 
-  const newDocumentType = {
-    id: id, // Asigna el UUID aleatorio
-    codigo: codigo,
-    nombre: nombre,
-    estado: estado,
-  };
+        data.forEach(documentType => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${documentType.codigo}</td>
+            <td>${documentType.nombre}</td>
+            <td>
+              <button onclick="editDocumentType('${documentType.id}')">Editar</button>
+              <button onclick="deleteDocumentType('${documentType.id}')">Eliminar</button>
+            </td>
+          `;
+          documentTypes.appendChild(row);
+        });
+      });
+  }
 
-  fetch('http://localhost/gestorgimnasio/api/v1/tipoidentificacion', {
-    method: 'POST',
-    headers: {
-      'accept': '*/*',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(newDocumentType),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // Procesa la respuesta o realiza alguna acción
-      console.log('Tipo de Documento creado:', data);
+  // Función para crear un nuevo Tipo de Documento
+  function createDocumentType() {
+    // Genera un UUID aleatorio utilizando la biblioteca 'uuidv4' que ahora está disponible globalmente
+    const id = uuidv4();
+    const codigo = document.getElementById('codigo').value;
+    const nombre = document.getElementById('nombre').value;
+    const estado = true;
 
-      // Limpia los campos de entrada después de crear el registro
-      document.getElementById("codigo").value = "";
-      document.getElementById("nombre").value = "";
+    const newDocumentType = {
+      id: id,
+      codigo: codigo,
+      nombre: nombre,
+      estado: estado
+    };
 
-      // Muestra un mensaje de éxito en la página
-      const responseMessage = document.getElementById("response-message");
-      responseMessage.innerText = 'Tipo de Documento creado con éxito';
-
-      // Puedes realizar otras acciones, como actualizar la lista de tipos de documento
-      // o mostrar un mensaje de éxito en la página
+    fetch('http://localhost/gestorgimnasio/api/v1/tipoidentificacion', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newDocumentType)
     })
-    .catch((error) => {
-      console.error('Error al crear el Tipo de Documento:', error);
-    });
-}
+      .then(response => response.json())
+      .then(data => {
+        console.log('Nuevo Tipo de Documento creado:', data);
+        // Limpia los campos de entrada después de crear el Tipo de Documento
+        document.getElementById('codigo').value = '';
+        document.getElementById('nombre').value = '';
+        // Actualiza la lista de Tipos de Documento
+        getDocumentTypes();
+      })
+      .catch(error => {
+        console.error('Error al crear un nuevo Tipo de Documento:', error);
+      });
+  }
+
+  // Resto del código (como se proporcionó en respuestas anteriores)
+
+  // Al cargar la página, obtén la lista de Tipos de Documento
+  getDocumentTypes();
+});
